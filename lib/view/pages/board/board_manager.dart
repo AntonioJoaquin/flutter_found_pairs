@@ -9,11 +9,15 @@ import 'models/card_model.dart';
 
 @injectable
 class BoardManager extends ViewManager {
+  final CustomValueNotifier<bool> _isInitialCountDown =
+      CustomValueNotifier<bool>(true);
+  CustomValueNotifier<bool> get isInitialCountDown => _isInitialCountDown;
+
   final CustomValueNotifier<Duration?> _remainedDuration =
       CustomValueNotifier<Duration?>(null);
   CustomValueNotifier<Duration?> get remainedDuration => _remainedDuration;
 
-  bool _canSelect = true;
+  bool _canSelect = false;
   bool get canSelect => _canSelect;
 
   Timer? _timer;
@@ -37,11 +41,17 @@ class BoardManager extends ViewManager {
 
   // actions
   void start() {
+    _isInitialCountDown.value = false;
+    _canSelect = true;
+
     _remainedDuration.value =
         const Duration(seconds: Constants.gameTimeInSeconds);
-    _timer = Timer.periodic(
+    Future.delayed(
       const Duration(seconds: 1),
-      (_) => _decreaseDuration(),
+      () => _timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (_) => _decreaseDuration(),
+      ),
     );
   }
 
@@ -89,6 +99,7 @@ class BoardManager extends ViewManager {
   }
 
   void dispose() {
+    _isInitialCountDown.dispose();
     _remainedDuration.dispose();
   }
 }

@@ -13,15 +13,26 @@ class BoardPage extends StatefulWidget {
   State<BoardPage> createState() => _BoardPageState();
 }
 
-class _BoardPageState extends State<BoardPage> {
+class _BoardPageState extends State<BoardPage>
+    with SingleTickerProviderStateMixin {
   final BoardManager _manager = locator<BoardManager>();
 
   final List<CardModel> _deck = [];
 
+  late AnimationController _initialCountDownController;
+  late Animation _animation;
+
   @override
   void initState() {
     _deck.addAll(BoardUtils.generateDeck(12));
-    _manager.start();
+
+    _initialCountDownController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addStatusListener(_initialCountDownListener);
+    _animation =
+        Tween(begin: .0, end: 4.0).animate(_initialCountDownController);
+    _initialCountDownController.forward();
 
     super.initState();
   }
@@ -29,8 +40,16 @@ class _BoardPageState extends State<BoardPage> {
   @override
   void dispose() {
     _manager.dispose();
+    _initialCountDownController.removeStatusListener(_initialCountDownListener);
+    _initialCountDownController.dispose();
 
     super.dispose();
+  }
+
+  void _initialCountDownListener(AnimationStatus status) {
+    if (status == AnimationStatus.completed) {
+      _manager.start();
+    }
   }
 
   @override
@@ -43,17 +62,42 @@ class _BoardPageState extends State<BoardPage> {
         ),
         title: const Text('Board Page'),
       ),
-      body: Column(
-        children: [
-          // SizedBox(height: MediaQuery.of(context).size.height * .1),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .1,
-            child: Center(child: _Timer(_manager)),
-          ),
-          _Board(_manager, _deck),
-        ],
+      body: ValueListenableBuilder(
+        valueListenable: _manager.isInitialCountDown,
+        builder: (_, bool isInitialCountDown, __) => isInitialCountDown
+            ? Center(
+                child: AnimatedBuilder(
+                  animation: _animation,
+                  builder: (_, __) => Opacity(
+                    opacity: _animation.value - _animation.value.toInt(),
+                    child: Text(
+                      _buildInitialCountDown(),
+                      style: const TextStyle(
+                        fontSize: 72,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            : Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .1,
+                    child: Center(child: _Timer(_manager)),
+                  ),
+                  _Board(_manager, _deck),
+                ],
+              ),
       ),
     );
+  }
+
+  String _buildInitialCountDown() {
+    final intPart = 3 - _animation.value.toInt();
+
+    return (intPart <= 0) ? 'Catch all!' : intPart.toString();
   }
 }
 

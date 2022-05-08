@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:found_pairs/view/pages/home/home_manager.dart';
 
 import '../../../di/locator.dart';
+import 'home_manager.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
