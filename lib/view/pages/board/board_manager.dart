@@ -1,11 +1,21 @@
+import 'dart:async';
+
+import 'package:found_pairs/common/custom_notifier.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../common/constants.dart';
 import 'models/card_model.dart';
 
 @Injectable()
 class BoardManager {
+  final CustomValueNotifier<Duration?> _remainedDuration =
+      CustomValueNotifier<Duration?>(null);
+  CustomValueNotifier<Duration?> get remainedDuration => _remainedDuration;
+
   bool _canSelect = true;
   bool get canSelect => _canSelect;
+
+  Timer? _timer;
 
   CardModel? _firstCardSelected;
   CardModel? _secondCardSelected;
@@ -25,6 +35,24 @@ class BoardManager {
   }
 
   // actions
+  void start() {
+    _remainedDuration.value =
+        const Duration(seconds: Constants.gameTimeInSeconds);
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => _decreaseDuration(),
+    );
+  }
+
+  void _decreaseDuration() {
+    final newDuration = _remainedDuration.value!.inSeconds - 1;
+    _remainedDuration.value = Duration(seconds: newDuration);
+
+    if (newDuration == 0) {
+      _timer!.cancel();
+    }
+  }
+
   void selectCard(CardModel card) => card.isFlipped
       ? _setFirstCardSelected(card)
       : (_firstCardSelected != null)
@@ -57,5 +85,9 @@ class BoardManager {
     _secondCardSelected = null;
 
     _canSelect = true;
+  }
+
+  void dispose() {
+    _remainedDuration.dispose();
   }
 }

@@ -14,13 +14,23 @@ class BoardPage extends StatefulWidget {
 }
 
 class _BoardPageState extends State<BoardPage> {
+  final BoardManager _manager = locator<BoardManager>();
+
   final List<CardModel> _deck = [];
 
   @override
   void initState() {
     _deck.addAll(BoardUtils.generateDeck(12));
+    _manager.start();
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _manager.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -35,23 +45,56 @@ class _BoardPageState extends State<BoardPage> {
       ),
       body: Column(
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * .1),
-          _Board(_deck),
+          // SizedBox(height: MediaQuery.of(context).size.height * .1),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .1,
+            child: Center(child: _Timer(_manager)),
+          ),
+          _Board(_manager, _deck),
         ],
       ),
     );
   }
 }
 
-class _Board extends StatelessWidget {
-  final BoardManager _manager = locator<BoardManager>();
-
-  _Board(
-    List<CardModel> deck, {
+class _Timer extends StatelessWidget {
+  const _Timer(
+    BoardManager manager, {
     Key? key,
-  })  : _deck = deck,
+  })  : _manager = manager,
         super(key: key);
 
+  final BoardManager _manager;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: _manager.remainedDuration,
+      builder: (_, Duration? remainedDuration, __) => Text(
+        remainedDuration != null ? _formatDuration(remainedDuration) : '00:00',
+        style: const TextStyle(
+          fontSize: 32.0,
+          fontWeight: FontWeight.w200,
+          letterSpacing: 4.0,
+        ),
+      ),
+    );
+  }
+
+  String _formatDuration(Duration remainedDuration) =>
+      '${remainedDuration.inMinutes.remainder(60).toString().padLeft(2, '0')} : ${remainedDuration.inSeconds.remainder(60).toString().padLeft(2, '0')}';
+}
+
+class _Board extends StatelessWidget {
+  const _Board(
+    BoardManager manager,
+    List<CardModel> deck, {
+    Key? key,
+  })  : _manager = manager,
+        _deck = deck,
+        super(key: key);
+
+  final BoardManager _manager;
   final List<CardModel> _deck;
 
   @override

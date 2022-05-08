@@ -39,7 +39,7 @@ class _CustomCardState extends State<CustomCard>
   @override
   Widget build(BuildContext context) {
     return widget._isPairFounded
-        ? _EmptyCard()
+        ? const _EmptyCard()
         : AnimatedBuilder(
             animation: widget._card.animation,
             builder: (_, __) => Transform(
