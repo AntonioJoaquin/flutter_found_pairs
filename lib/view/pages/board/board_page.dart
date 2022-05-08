@@ -1,7 +1,33 @@
 import 'package:flutter/material.dart';
 
-class BoardPage extends StatelessWidget {
+import 'models/card_model.dart';
+import 'widgets/custom_card.dart';
+
+class BoardPage extends StatefulWidget {
   const BoardPage({Key? key}) : super(key: key);
+
+  @override
+  State<BoardPage> createState() => _BoardPageState();
+}
+
+class _BoardPageState extends State<BoardPage> {
+  final List<CardModel> _deck = [];
+
+  @override
+  void initState() {
+    _deck.addAll(CardModel.generateDeck(12));
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    for (CardModel card in _deck) {
+      card.dispose();
+    }
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +52,8 @@ class BoardPage extends StatelessWidget {
                 mainAxisSpacing: 4.0,
                 crossAxisSpacing: 4.0,
               ),
-              itemCount: 24,
-              itemBuilder: (_, index) => Container(
-                height: 200,
-                width: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.red,
-                ),
-              ),
+              itemCount: _deck.length,
+              itemBuilder: (_, index) => CustomCard(_deck[index]),
             ),
           ),
         ],
