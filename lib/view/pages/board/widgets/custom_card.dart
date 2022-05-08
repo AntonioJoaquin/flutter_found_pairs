@@ -6,11 +6,15 @@ import '../models/card_model.dart';
 
 class CustomCard extends StatefulWidget {
   const CustomCard(
-    this._card, {
+    this._card,
+    this._onCheckPair,
+    this._isPairFounded, {
     Key? key,
   }) : super(key: key);
 
   final CardModel _card;
+  final Function _onCheckPair;
+  final bool _isPairFounded;
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -20,7 +24,7 @@ class _CustomCardState extends State<CustomCard>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    widget._card.init(this);
+    widget._card.init(this, widget._onCheckPair);
 
     super.initState();
   }
@@ -34,22 +38,24 @@ class _CustomCardState extends State<CustomCard>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: widget._card.animation,
-      builder: (_, __) => Transform(
-        alignment: FractionalOffset.center,
-        transform: Matrix4.identity()
-          ..setEntry(3, 2, .0015)
-          ..rotateY(pi * widget._card.animation.value),
-        child: (widget._card.animation.value <= .5)
-            ? const _CardBack()
-            : Transform(
-                alignment: FractionalOffset.center,
-                transform: Matrix4.identity()..setRotationY(pi),
-                child: _CardFront(widget._card.publicValue),
-              ),
-      ),
-    );
+    return widget._isPairFounded
+        ? _EmptyCard()
+        : AnimatedBuilder(
+            animation: widget._card.animation,
+            builder: (_, __) => Transform(
+              alignment: FractionalOffset.center,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, .0015)
+                ..rotateY(pi * widget._card.animation.value),
+              child: (widget._card.animation.value <= .5)
+                  ? const _CardBack()
+                  : Transform(
+                      alignment: FractionalOffset.center,
+                      transform: Matrix4.identity()..setRotationY(pi),
+                      child: _CardFront(widget._card.publicValue),
+                    ),
+            ),
+          );
   }
 }
 
@@ -67,6 +73,7 @@ class _CardFront extends StatelessWidget {
       height: 200,
       width: 200,
       decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(8.0),
         color: Colors.blue,
       ),
@@ -92,6 +99,7 @@ class _CardBack extends StatelessWidget {
       height: 200,
       width: 200,
       decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(8.0),
         color: Colors.red,
       ),
@@ -103,6 +111,22 @@ class _CardBack extends StatelessWidget {
             color: Colors.white,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _EmptyCard extends StatelessWidget {
+  const _EmptyCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      width: 200,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        borderRadius: BorderRadius.circular(8.0),
       ),
     );
   }

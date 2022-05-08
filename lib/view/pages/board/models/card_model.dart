@@ -15,16 +15,23 @@ class CardModel {
   late AnimationController _animationController;
   AnimationController get animationController => _animationController;
 
+  late void Function(AnimationStatus status) _animControllerListener;
+
   late Animation _animation;
   Animation get animation => _animation;
 
   CardModel(this.value, this.publicValue);
 
-  void init(TickerProvider vsync) {
+  void init(TickerProvider vsync, Function onCheckPair) {
+    _animControllerListener = (status) {
+      if (status == AnimationStatus.completed) {
+        onCheckPair.call();
+      }
+    };
     _animationController = AnimationController(
       vsync: vsync,
       duration: const Duration(milliseconds: 300),
-    );
+    )..addStatusListener(_animControllerListener);
     _animation = Tween(end: 1.0, begin: .0).animate(_animationController);
   }
 
@@ -40,6 +47,7 @@ class CardModel {
 
   void dispose() {
     _isPairFounded.dispose();
+    _animationController.removeStatusListener(_animControllerListener);
     _animationController.dispose();
   }
 }

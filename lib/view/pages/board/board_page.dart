@@ -87,9 +87,12 @@ class _DeckItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _manager.selectCard(_card),
-      child: CustomCard(_card),
+    return ValueListenableBuilder(
+      valueListenable: _card.isPairFounded,
+      builder: (_, bool isPairFounded, __) => GestureDetector(
+        onTap: () => isPairFounded ? null : _manager.selectCard(_card),
+        child: CustomCard(_card, _manager.checkPair, isPairFounded),
+      ),
     );
   }
 }
