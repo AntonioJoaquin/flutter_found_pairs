@@ -90,9 +90,12 @@ class _DeckItem extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: _card.isPairFounded,
       builder: (_, bool isPairFounded, __) => GestureDetector(
-        onTap: () => isPairFounded ? null : _manager.selectCard(_card),
+        onTap: () => _onItemTap(isPairFounded),
         child: CustomCard(_card, _manager.checkPair, isPairFounded),
       ),
     );
   }
+
+  void _onItemTap(bool isPairFounded) =>
+      (isPairFounded || _card.isFlipped) ? null : _manager.selectCard(_card);
 }
