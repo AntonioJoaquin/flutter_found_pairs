@@ -50,8 +50,9 @@ class _CustomCardState extends State<CustomCard>
             ..rotateY(pi * _animation.value),
           child: (_animation.value <= .5)
               ? const _CardBack()
-              : RotatedBox(
-                  quarterTurns: 2,
+              : Transform(
+                  alignment: FractionalOffset.center,
+                  transform: Matrix4.identity()..setRotationY(pi),
                   child: _CardFront(widget._card.publicValue),
                 ),
         ),
@@ -104,7 +105,7 @@ class _CardBack extends StatelessWidget {
       ),
       child: const Center(
         child: Text(
-          'B',
+          'X',
           style: TextStyle(
             fontSize: 24.0,
             color: Colors.white,

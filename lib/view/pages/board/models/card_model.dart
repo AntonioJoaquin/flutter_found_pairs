@@ -12,15 +12,4 @@ class CardModel {
   void flip() => _isFlipped.value = !_isFlipped.value;
 
   void dispose() => _isFlipped.dispose();
-
-  static List<CardModel> generateDeck(int numPairs) {
-    final _deck = <CardModel>[];
-
-    for (int i = 0; i < numPairs; i++) {
-      _deck.add(CardModel(i, 'C'));
-      _deck.add(CardModel(i, 'C'));
-    }
-
-    return _deck;
-  }
 }

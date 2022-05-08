@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../utils/board_utils.dart';
 import 'models/card_model.dart';
 import 'widgets/custom_card.dart';
 
@@ -15,7 +16,7 @@ class _BoardPageState extends State<BoardPage> {
 
   @override
   void initState() {
-    _deck.addAll(CardModel.generateDeck(12));
+    _deck.addAll(BoardUtils.generateDeck(12));
 
     super.initState();
   }
