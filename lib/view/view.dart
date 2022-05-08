@@ -16,8 +16,10 @@ abstract class View {
             fontWeight: FontWeight.bold,
             color: Colors.red,
           ),
+          centerTitle: true,
           color: Colors.transparent,
           elevation: .0,
+          iconTheme: IconThemeData(color: Colors.red),
         ),
       );
 }

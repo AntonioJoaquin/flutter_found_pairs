@@ -43,6 +43,10 @@ class _BoardPageState extends State<BoardPage>
     _initialCountDownController.removeStatusListener(_initialCountDownListener);
     _initialCountDownController.dispose();
 
+    for (CardModel card in _deck) {
+      card.dispose();
+    }
+
     super.dispose();
   }
 
@@ -56,10 +60,7 @@ class _BoardPageState extends State<BoardPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(
-          Icons.arrow_back_rounded,
-          color: Colors.red,
-        ),
+        automaticallyImplyLeading: true,
         title: const Text('Board Page'),
       ),
       body: ValueListenableBuilder(

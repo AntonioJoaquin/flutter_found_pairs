@@ -30,13 +30,6 @@ class _CustomCardState extends State<CustomCard>
   }
 
   @override
-  void dispose() {
-    widget._card.dispose();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return widget._isPairFounded
         ? const _EmptyCard()
