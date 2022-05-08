@@ -97,5 +97,7 @@ class _DeckItem extends StatelessWidget {
   }
 
   void _onItemTap(bool isPairFounded) =>
-      (isPairFounded || _card.isFlipped) ? null : _manager.selectCard(_card);
+      (isPairFounded || _card.isFlipped || !_manager.canSelect)
+          ? null
+          : _manager.selectCard(_card);
 }
