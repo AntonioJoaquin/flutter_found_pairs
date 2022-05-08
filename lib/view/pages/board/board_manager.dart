@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:found_pairs/common/custom_notifier.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../common/constants.dart';
+import '../../common/constants.dart';
+import '../../common/custom_notifier.dart';
 import 'models/card_model.dart';
 
 @Injectable()

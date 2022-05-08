@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:found_pairs/common/custom_notifier.dart';
+
+import '../../../common/custom_notifier.dart';
 
 class CardModel {
   final int value;
