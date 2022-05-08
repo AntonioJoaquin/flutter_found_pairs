@@ -18,44 +18,36 @@ class CustomCard extends StatefulWidget {
 
 class _CustomCardState extends State<CustomCard>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation _animation;
-
   @override
   void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _animation = Tween(end: 1.0, begin: .0).animate(_animationController);
+    widget._card.init(this);
 
     super.initState();
   }
 
   @override
+  void dispose() {
+    widget._card.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        widget._card.isFlipped.value
-            ? _animationController.reverse()
-            : _animationController.forward();
-        widget._card.flip();
-      },
-      child: AnimatedBuilder(
-        animation: _animation,
-        builder: (_, __) => Transform(
-          alignment: FractionalOffset.center,
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, .0015)
-            ..rotateY(pi * _animation.value),
-          child: (_animation.value <= .5)
-              ? const _CardBack()
-              : Transform(
-                  alignment: FractionalOffset.center,
-                  transform: Matrix4.identity()..setRotationY(pi),
-                  child: _CardFront(widget._card.publicValue),
-                ),
-        ),
+    return AnimatedBuilder(
+      animation: widget._card.animation,
+      builder: (_, __) => Transform(
+        alignment: FractionalOffset.center,
+        transform: Matrix4.identity()
+          ..setEntry(3, 2, .0015)
+          ..rotateY(pi * widget._card.animation.value),
+        child: (widget._card.animation.value <= .5)
+            ? const _CardBack()
+            : Transform(
+                alignment: FractionalOffset.center,
+                transform: Matrix4.identity()..setRotationY(pi),
+                child: _CardFront(widget._card.publicValue),
+              ),
       ),
     );
   }
