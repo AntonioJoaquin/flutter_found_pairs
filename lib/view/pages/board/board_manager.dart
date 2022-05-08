@@ -4,10 +4,11 @@ import 'package:injectable/injectable.dart';
 
 import '../../common/constants.dart';
 import '../../common/custom_notifier.dart';
+import '../../view_manager.dart';
 import 'models/card_model.dart';
 
-@Injectable()
-class BoardManager {
+@injectable
+class BoardManager extends ViewManager {
   final CustomValueNotifier<Duration?> _remainedDuration =
       CustomValueNotifier<Duration?>(null);
   CustomValueNotifier<Duration?> get remainedDuration => _remainedDuration;
