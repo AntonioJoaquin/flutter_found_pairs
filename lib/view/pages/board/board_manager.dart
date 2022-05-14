@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../common/constants.dart';
 import '../../common/custom_notifier.dart';
+import '../../common/play_dialog_types.dart';
 import '../../view_manager.dart';
 import 'models/card_model.dart';
-import 'widgets/board_advices.dart';
 
 @injectable
 class BoardManager extends ViewManager {
@@ -63,6 +62,7 @@ class BoardManager extends ViewManager {
     _remainedDuration.value = Duration(seconds: newDuration);
 
     if (newDuration == 0) {
+      showLoseDialog();
       _timer!.cancel();
     }
   }
@@ -102,8 +102,8 @@ class BoardManager extends ViewManager {
   }
 
   // shows
-  void showWinDialog(BuildContext context) async {
-    BoardAdvices.showPlayDialog(context, PlayDialogType.win);
+  void showWinDialog() async {
+    dialogService.showPlayDialog(PlayDialogType.win, [() {}, () {}, () {}]);
 
     AssetsAudioPlayer.newPlayer().open(
       Audio('assets/sounds/win.wav'),
@@ -111,14 +111,23 @@ class BoardManager extends ViewManager {
     );
   }
 
-  void showLoseDialog(BuildContext context) async {
-    BoardAdvices.showPlayDialog(context, PlayDialogType.lose);
+  void showLoseDialog() async {
+    dialogService.showPlayDialog(PlayDialogType.lose, [
+      () {},
+      () {
+        navigationService.pop(); // Close dialog
+        _navigateToHome();
+      }
+    ]);
 
     AssetsAudioPlayer.newPlayer().open(
       Audio('assets/sounds/lose.wav'),
       autoStart: true,
     );
   }
+
+  // navigation
+  void _navigateToHome() => navigationService.pop();
 
   void dispose() {
     _isInitialCountDown.dispose();

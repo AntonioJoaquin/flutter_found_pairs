@@ -34,13 +34,13 @@ class _CustomCardState extends State<CustomCard>
     return widget._isPairFounded
         ? const _EmptyCard()
         : AnimatedBuilder(
-            animation: widget._card.animation,
+            animation: widget._card.animation!,
             builder: (_, __) => Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()
                 ..setEntry(3, 2, .0015)
-                ..rotateY(pi * widget._card.animation.value),
-              child: (widget._card.animation.value <= .5)
+                ..rotateY(pi * widget._card.animation?.value),
+              child: (widget._card.animation?.value <= .5)
                   ? const _CardBack()
                   : Transform(
                       alignment: FractionalOffset.center,

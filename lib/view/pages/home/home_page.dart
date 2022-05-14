@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
         child: Center(
           child: CustomButton(
             'New game',
-            () => _manager.navigateToBoardGame,
+            _manager.navigateToBoardGame,
           ),
         ),
       ),

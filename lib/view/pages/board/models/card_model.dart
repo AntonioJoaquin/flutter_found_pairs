@@ -13,13 +13,13 @@ class CardModel {
   bool _isFlipped = false;
   bool get isFlipped => _isFlipped;
 
-  late AnimationController _animationController;
-  AnimationController get animationController => _animationController;
+  AnimationController? _animationController;
+  AnimationController? get animationController => _animationController;
 
-  late void Function(AnimationStatus status) _animControllerListener;
+  void Function(AnimationStatus status)? _animControllerListener;
 
-  late Animation _animation;
-  Animation get animation => _animation;
+  Animation? _animation;
+  Animation? get animation => _animation;
 
   CardModel(this.value, this.publicValue);
 
@@ -32,14 +32,14 @@ class CardModel {
     _animationController = AnimationController(
       vsync: vsync,
       duration: const Duration(milliseconds: 300),
-    )..addStatusListener(_animControllerListener);
-    _animation = Tween(end: 1.0, begin: .0).animate(_animationController);
+    )..addStatusListener(_animControllerListener!);
+    _animation = Tween(end: 1.0, begin: .0).animate(_animationController!);
   }
 
   void flip() {
     _isFlipped
-        ? _animationController.reverse()
-        : _animationController.forward();
+        ? _animationController?.reverse()
+        : _animationController?.forward();
 
     _isFlipped = !_isFlipped;
   }
@@ -48,7 +48,9 @@ class CardModel {
 
   void dispose() {
     _isPairFounded.dispose();
-    _animationController.removeStatusListener(_animControllerListener);
-    _animationController.dispose();
+    if (_animControllerListener != null) {
+      _animationController?.removeStatusListener(_animControllerListener!);
+    }
+    _animationController?.dispose();
   }
 }
