@@ -1,11 +1,14 @@
 import 'dart:async';
 
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../common/constants.dart';
 import '../../common/custom_notifier.dart';
 import '../../view_manager.dart';
 import 'models/card_model.dart';
+import 'widgets/board_advices.dart';
 
 @injectable
 class BoardManager extends ViewManager {
@@ -96,6 +99,16 @@ class BoardManager extends ViewManager {
     _secondCardSelected = null;
 
     _canSelect = true;
+  }
+
+  // shows
+  void showWinDialog(BuildContext context) async {
+    BoardAdvices.showWinDialog(context);
+
+    AssetsAudioPlayer.newPlayer().open(
+      Audio('assets/sounds/win.wav'),
+      autoStart: true,
+    );
   }
 
   void dispose() {
