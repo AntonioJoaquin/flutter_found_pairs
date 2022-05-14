@@ -1,6 +1,4 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:found_pairs/view/pages/board/widgets/board_advices.dart';
 
 import '../../../di/locator.dart';
 import '../../common/widgets/custom_button.dart';
@@ -22,19 +20,10 @@ class HomePage extends StatelessWidget {
         child: Center(
           child: CustomButton(
             'New game',
-            () => _showWinDialog(context), // _manager.navigateToBoardGame,),
+            () => _manager.navigateToBoardGame,
           ),
         ),
       ),
-    );
-  }
-
-  void _showWinDialog(BuildContext context) async {
-    BoardAdvices.showWinDialog(context);
-
-    AssetsAudioPlayer.newPlayer().open(
-      Audio('assets/sounds/lose.wav'),
-      autoStart: true,
     );
   }
 }

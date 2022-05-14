@@ -103,10 +103,19 @@ class BoardManager extends ViewManager {
 
   // shows
   void showWinDialog(BuildContext context) async {
-    BoardAdvices.showWinDialog(context);
+    BoardAdvices.showPlayDialog(context, PlayDialogType.win);
 
     AssetsAudioPlayer.newPlayer().open(
       Audio('assets/sounds/win.wav'),
+      autoStart: true,
+    );
+  }
+
+  void showLoseDialog(BuildContext context) async {
+    BoardAdvices.showPlayDialog(context, PlayDialogType.lose);
+
+    AssetsAudioPlayer.newPlayer().open(
+      Audio('assets/sounds/lose.wav'),
       autoStart: true,
     );
   }
