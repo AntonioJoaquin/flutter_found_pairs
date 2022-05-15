@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:found_pairs/utils/router.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../common/constants.dart';
@@ -21,6 +22,8 @@ class BoardManager extends ViewManager {
 
   bool _canSelect = false;
   bool get canSelect => _canSelect;
+
+  int _points = 0;
 
   Timer? _timer;
 
@@ -62,7 +65,7 @@ class BoardManager extends ViewManager {
     _remainedDuration.value = Duration(seconds: newDuration);
 
     if (newDuration == 0) {
-      showLoseDialog();
+      _showLoseDialog();
       _timer!.cancel();
     }
   }
@@ -88,7 +91,18 @@ class BoardManager extends ViewManager {
     _firstCardSelected!.pairFounded();
     _secondCardSelected!.pairFounded();
 
-    _restoreSelectedCards();
+    _points++;
+
+    (_points == Constants.gamePairCards) ? _gameWon() : _restoreSelectedCards();
+  }
+
+  void _gameWon() {
+    _timer?.cancel();
+
+    Future.delayed(
+      const Duration(milliseconds: 300),
+      (() => _showWinDialog()),
+    );
   }
 
   void _restoreSelectedCards() {
@@ -102,8 +116,12 @@ class BoardManager extends ViewManager {
   }
 
   // shows
-  void showWinDialog() async {
-    dialogService.showPlayDialog(PlayDialogType.win, [() {}, () {}, () {}]);
+  void _showWinDialog() async {
+    dialogService.showPlayDialog(PlayDialogType.win, [
+      () {},
+      () {},
+      () => _navigateToHome(),
+    ]);
 
     AssetsAudioPlayer.newPlayer().open(
       Audio('assets/sounds/win.wav'),
@@ -111,13 +129,10 @@ class BoardManager extends ViewManager {
     );
   }
 
-  void showLoseDialog() async {
+  void _showLoseDialog() async {
     dialogService.showPlayDialog(PlayDialogType.lose, [
       () {},
-      () {
-        navigationService.pop(); // Close dialog
-        _navigateToHome();
-      }
+      () => _navigateToHome(),
     ]);
 
     AssetsAudioPlayer.newPlayer().open(
@@ -127,7 +142,7 @@ class BoardManager extends ViewManager {
   }
 
   // navigation
-  void _navigateToHome() => navigationService.pop();
+  void _navigateToHome() => navigationService.popUntil(AppRouter.homeRoute);
 
   void dispose() {
     _isInitialCountDown.dispose();

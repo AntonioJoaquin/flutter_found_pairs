@@ -95,9 +95,10 @@ class NavigationService {
     }
   }
 
-  Future popToRoot<T>(String routeName, Object? argument) async {
+  Future popUntil<T>(String routeName) async {
     try {
-      return _navigatorKey.currentState?.popUntil((route) => route.isFirst);
+      return _navigatorKey.currentState
+          ?.popUntil((route) => route.settings.name == routeName);
     } on Exception catch (error) {
       if (kDebugMode) {
         print('Exception occurred in pop: $error');
