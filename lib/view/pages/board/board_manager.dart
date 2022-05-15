@@ -151,7 +151,11 @@ class BoardManager extends ViewManager {
   }
 
   // navigation
-  void _navigateToHome() => navigationService.popUntil(AppRouter.homeRoute);
+  void _navigateToHome() {
+    _timer?.cancel();
+
+    navigationService.popUntil(AppRouter.homeRoute);
+  }
 
   void dispose() {
     _isInitialCountDown.dispose();
