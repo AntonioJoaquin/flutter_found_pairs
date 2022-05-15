@@ -53,12 +53,14 @@ class BoardManager extends ViewManager {
         const Duration(seconds: Constants.gameTimeInSeconds);
     Future.delayed(
       const Duration(seconds: 1),
-      () => _timer = Timer.periodic(
-        const Duration(seconds: 1),
-        (_) => _decreaseDuration(),
-      ),
+      () => _initTimer(),
     );
   }
+
+  void _initTimer() => _timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (_) => _decreaseDuration(),
+      );
 
   void _decreaseDuration() {
     final newDuration = _remainedDuration.value!.inSeconds - 1;
@@ -115,6 +117,11 @@ class BoardManager extends ViewManager {
     _canSelect = true;
   }
 
+  void _resume() {
+    navigationService.pop(); // Close dialog
+    _initTimer();
+  }
+
   // shows
   void _showWinDialog() async {
     dialogService.showPlayDialog(PlayDialogType.win, [
@@ -142,9 +149,11 @@ class BoardManager extends ViewManager {
   }
 
   Future<bool> showPauseDialog() async {
+    _timer?.cancel();
+
     dialogService.showPlayDialog(PlayDialogType.pause, [
       () => _navigateToHome(),
-      () => navigationService.pop(),
+      () => _resume(),
     ]);
 
     return false;
