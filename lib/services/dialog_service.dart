@@ -174,7 +174,9 @@ class DialogService {
             ),
             child: (type == PlayDialogType.win)
                 ? _buildWinDialog(size, onTaps)
-                : _buildLoseDialog(size, onTaps),
+                : (type == PlayDialogType.lose)
+                    ? _buildLoseDialog(size, onTaps)
+                    : _buildPauseDialog(size, onTaps),
           ),
         );
       },
@@ -241,6 +243,31 @@ class DialogService {
             padding: const EdgeInsets.only(top: 8.0),
             child: CustomButton(
               'Go home',
+              () => onTaps[1].call(),
+            ),
+          ),
+        ],
+      );
+
+  Widget _buildPauseDialog(Size size, List<Function> onTaps) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'Game paused',
+            style: TextStyle(
+              fontSize: 32.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: size.height * .05),
+          CustomButton(
+            'Go home',
+            () => onTaps[0].call(),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: CustomButton(
+              'Close',
               () => onTaps[1].call(),
             ),
           ),

@@ -59,39 +59,42 @@ class _BoardPageState extends State<BoardPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: const Text('Board Page'),
-      ),
-      body: ValueListenableBuilder(
-        valueListenable: _manager.isInitialCountDown,
-        builder: (_, bool isInitialCountDown, __) => isInitialCountDown
-            ? Center(
-                child: AnimatedBuilder(
-                  animation: _animation,
-                  builder: (_, __) => Opacity(
-                    opacity: _animation.value - _animation.value.toInt(),
-                    child: Text(
-                      _buildInitialCountDown(),
-                      style: const TextStyle(
-                        fontSize: 72,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
+    return WillPopScope(
+      onWillPop: () => _manager.showPauseDialog(),
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          title: const Text('Board Page'),
+        ),
+        body: ValueListenableBuilder(
+          valueListenable: _manager.isInitialCountDown,
+          builder: (_, bool isInitialCountDown, __) => isInitialCountDown
+              ? Center(
+                  child: AnimatedBuilder(
+                    animation: _animation,
+                    builder: (_, __) => Opacity(
+                      opacity: _animation.value - _animation.value.toInt(),
+                      child: Text(
+                        _buildInitialCountDown(),
+                        style: const TextStyle(
+                          fontSize: 72,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
                       ),
                     ),
                   ),
+                )
+              : Column(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .1,
+                      child: Center(child: _Timer(_manager)),
+                    ),
+                    _Board(_manager, _deck),
+                  ],
                 ),
-              )
-            : Column(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * .1,
-                    child: Center(child: _Timer(_manager)),
-                  ),
-                  _Board(_manager, _deck),
-                ],
-              ),
+        ),
       ),
     );
   }

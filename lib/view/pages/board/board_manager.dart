@@ -141,6 +141,15 @@ class BoardManager extends ViewManager {
     );
   }
 
+  Future<bool> showPauseDialog() async {
+    dialogService.showPlayDialog(PlayDialogType.pause, [
+      () => _navigateToHome(),
+      () => navigationService.pop(),
+    ]);
+
+    return false;
+  }
+
   // navigation
   void _navigateToHome() => navigationService.popUntil(AppRouter.homeRoute);
 

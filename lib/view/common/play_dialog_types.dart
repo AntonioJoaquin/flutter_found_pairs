@@ -1,1 +1,1 @@
-enum PlayDialogType { win, lose }
+enum PlayDialogType { win, lose, pause }
