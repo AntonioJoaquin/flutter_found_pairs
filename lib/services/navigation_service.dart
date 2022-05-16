@@ -106,6 +106,16 @@ class NavigationService {
     }
   }
 
+  Future pushReplacement<T>(String routeName) async {
+    try {
+      return _navigatorKey.currentState?.pushReplacementNamed(routeName);
+    } on Exception catch (error) {
+      if (kDebugMode) {
+        print('Exception occurred in pushReplacementNamed: $error');
+      }
+    }
+  }
+
   // deferred navigation
   void setDeferredNavigation(Function? deferredNavigation) =>
       _deferredNavigation = deferredNavigation;

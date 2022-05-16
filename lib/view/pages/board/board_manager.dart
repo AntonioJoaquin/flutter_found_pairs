@@ -122,6 +122,11 @@ class BoardManager extends ViewManager {
     _initTimer();
   }
 
+  void _retry() {
+    navigationService.pop(); // Close dialog
+    navigationService.pushReplacement(AppRouter.boardRoute);
+  }
+
   // shows
   void _showWinDialog() async {
     dialogService.showPlayDialog(PlayDialogType.win, [
@@ -138,7 +143,7 @@ class BoardManager extends ViewManager {
 
   void _showLoseDialog() async {
     dialogService.showPlayDialog(PlayDialogType.lose, [
-      () {},
+      () => _retry(),
       () => _navigateToHome(),
     ]);
 
