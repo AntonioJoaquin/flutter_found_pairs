@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../models/card_model.dart';
 
@@ -63,8 +64,6 @@ class _CardFront extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
-      width: 200,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(8.0),
@@ -73,8 +72,8 @@ class _CardFront extends StatelessWidget {
       child: Center(
         child: Text(
           _publicValue,
-          style: const TextStyle(
-            fontSize: 24.0,
+          style: TextStyle(
+            fontSize: 24.sp,
             color: Colors.white,
           ),
         ),
@@ -89,18 +88,16 @@ class _CardBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
-      width: 200,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(8.0),
         color: Colors.red,
       ),
-      child: const Center(
+      child: Center(
         child: Text(
           'X',
           style: TextStyle(
-            fontSize: 24.0,
+            fontSize: 24.sp,
             color: Colors.white,
           ),
         ),
@@ -115,8 +112,6 @@ class _EmptyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
-      width: 200,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(8.0),

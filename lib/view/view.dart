@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/router.dart';
 
@@ -10,16 +11,16 @@ abstract class View {
 
   /// Theming
   static ThemeData get theme => ThemeData(
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           titleTextStyle: TextStyle(
-            fontSize: 24.0,
+            fontSize: 24.sp,
             fontWeight: FontWeight.bold,
             color: Colors.red,
           ),
           centerTitle: true,
           color: Colors.transparent,
           elevation: .0,
-          iconTheme: IconThemeData(color: Colors.red),
+          iconTheme: const IconThemeData(color: Colors.red),
         ),
       );
 }

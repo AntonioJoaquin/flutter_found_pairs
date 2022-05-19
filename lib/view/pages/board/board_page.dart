@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:found_pairs/di/locator.dart';
 import 'package:found_pairs/view/common/constants.dart';
 
@@ -64,7 +65,7 @@ class _BoardPageState extends State<BoardPage>
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
-          title: const Text('Board Page'),
+          title: _Timer(_manager),
         ),
         body: ValueListenableBuilder(
           valueListenable: _manager.isInitialCountDown,
@@ -76,8 +77,8 @@ class _BoardPageState extends State<BoardPage>
                       opacity: _animation.value - _animation.value.toInt(),
                       child: Text(
                         _buildInitialCountDown(),
-                        style: const TextStyle(
-                          fontSize: 72,
+                        style: TextStyle(
+                          fontSize: 72.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.red,
                         ),
@@ -85,15 +86,7 @@ class _BoardPageState extends State<BoardPage>
                     ),
                   ),
                 )
-              : Column(
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * .1,
-                      child: Center(child: _Timer(_manager)),
-                    ),
-                    _Board(_manager, _deck),
-                  ],
-                ),
+              : _Board(_manager, _deck),
         ),
       ),
     );
@@ -121,8 +114,8 @@ class _Timer extends StatelessWidget {
       valueListenable: _manager.remainedDuration,
       builder: (_, Duration? remainedDuration, __) => Text(
         remainedDuration != null ? _formatDuration(remainedDuration) : '00:00',
-        style: const TextStyle(
-          fontSize: 32.0,
+        style: TextStyle(
+          fontSize: 24.0.sp,
           fontWeight: FontWeight.w200,
           letterSpacing: 4.0,
         ),
@@ -148,15 +141,17 @@ class _Board extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 104 * 6,
+    final Size size = MediaQuery.of(context).size;
+
+    return Center(
       child: GridView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
           mainAxisSpacing: 4.0,
           crossAxisSpacing: 4.0,
+          childAspectRatio: size.aspectRatio * 1.8,
         ),
         itemCount: _deck.length,
         itemBuilder: (_, index) => _DeckItem(_manager, _deck[index]),
