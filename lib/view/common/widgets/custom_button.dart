@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../style/palette.dart';
+
 class CustomButton extends StatelessWidget {
   const CustomButton(
     String text,
@@ -21,14 +23,14 @@ class CustomButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
-          color: Colors.red,
+          color: Palette.red,
         ),
         child: Text(
           _text,
           style: const TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.w300,
-            color: Colors.white,
+            color: Palette.white,
           ),
           textAlign: TextAlign.center,
         ),

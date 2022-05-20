@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../../../common/style/card_styles.dart';
+import '../../../common/style/palette.dart';
 import '../models/card_model.dart';
 
 class CustomCard extends StatefulWidget {
@@ -65,9 +66,9 @@ class _CardFront extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
+        border: Border.all(color: Palette.black),
         borderRadius: BorderRadius.circular(8.0),
-        color: Colors.grey[200],
+        color: Palette.cardFrontBackground,
       ),
       child: Center(
         child: Image.asset(
@@ -86,9 +87,9 @@ class _CardBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 2),
+        border: Border.all(color: Palette.black, width: 2),
         borderRadius: BorderRadius.circular(8.0),
-        gradient: CardStyles.backDesign,
+        gradient: CardStyles.easyBackDesign,
       ),
     );
   }
@@ -101,7 +102,7 @@ class _EmptyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
+        border: Border.all(color: Palette.black),
         borderRadius: BorderRadius.circular(8.0),
       ),
     );

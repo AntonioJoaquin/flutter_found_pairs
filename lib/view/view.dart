@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/router.dart';
+import 'common/style/palette.dart';
 
 abstract class View {
   /// Routing
@@ -15,12 +16,12 @@ abstract class View {
           titleTextStyle: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.bold,
-            color: Colors.red,
+            color: Palette.red,
           ),
           centerTitle: true,
-          color: Colors.transparent,
+          color: Palette.transparent,
           elevation: .0,
-          iconTheme: const IconThemeData(color: Colors.red),
+          iconTheme: const IconThemeData(color: Palette.red),
         ),
       );
 }
