@@ -13,4 +13,8 @@ abstract class Pictures {
         'assets/images/pokemon/11.png',
         'assets/images/pokemon/12.png',
       ];
+
+  static String get easyIcon => 'assets/images/pokeball/easy.png';
+  static String get mediumIcon => 'assets/images/pokeball/medium.png';
+  static String get hardIcon => 'assets/images/pokeball/hard.png';
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/style/card_styles.dart';
 import '../../../common/style/palette.dart';
+import '../../../common/style/pictures.dart';
 import '../models/card_model.dart';
 
 class CustomCard extends StatefulWidget {
@@ -69,10 +70,9 @@ class _CardFront extends StatelessWidget {
         border: Border.all(color: Palette.black),
         borderRadius: BorderRadius.circular(8.0),
         color: Palette.cardFrontBackground,
-      ),
-      child: Center(
-        child: Image.asset(
-          _publicValue,
+        image: DecorationImage(
+          image: AssetImage(_publicValue),
+          alignment: Alignment.center,
           fit: BoxFit.contain,
         ),
       ),
@@ -104,6 +104,10 @@ class _EmptyCard extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Palette.black),
         borderRadius: BorderRadius.circular(8.0),
+        image: DecorationImage(
+          image: AssetImage(Pictures.easyIcon),
+          alignment: Alignment.center,
+        ),
       ),
     );
   }

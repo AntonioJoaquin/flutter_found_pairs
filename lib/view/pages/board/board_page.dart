@@ -4,6 +4,7 @@ import 'package:found_pairs/di/locator.dart';
 import 'package:found_pairs/view/common/constants.dart';
 
 import '../../../utils/board_utils.dart';
+import '../../common/style/palette.dart';
 import 'board_manager.dart';
 import 'models/card_model.dart';
 import 'widgets/custom_card.dart';
@@ -95,7 +96,7 @@ class _AnimatedCountDown extends StatelessWidget {
             style: TextStyle(
               fontSize: 72.sp,
               fontWeight: FontWeight.bold,
-              color: Colors.red,
+              color: Palette.red,
             ),
           ),
         ),
