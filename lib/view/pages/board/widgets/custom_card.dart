@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../common/style/card_styles.dart';
 import '../models/card_model.dart';
 
 class CustomCard extends StatefulWidget {
@@ -67,15 +67,12 @@ class _CardFront extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(8.0),
-        color: Colors.blue,
+        color: Colors.grey[200],
       ),
       child: Center(
-        child: Text(
+        child: Image.asset(
           _publicValue,
-          style: TextStyle(
-            fontSize: 24.sp,
-            color: Colors.white,
-          ),
+          fit: BoxFit.contain,
         ),
       ),
     );
@@ -89,18 +86,9 @@ class _CardBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
+        border: Border.all(color: Colors.black, width: 2),
         borderRadius: BorderRadius.circular(8.0),
-        color: Colors.red,
-      ),
-      child: Center(
-        child: Text(
-          'X',
-          style: TextStyle(
-            fontSize: 24.sp,
-            color: Colors.white,
-          ),
-        ),
+        gradient: CardStyles.backDesign,
       ),
     );
   }

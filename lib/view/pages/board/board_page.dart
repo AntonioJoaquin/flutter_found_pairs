@@ -70,30 +70,41 @@ class _BoardPageState extends State<BoardPage>
         body: ValueListenableBuilder(
           valueListenable: _manager.isInitialCountDown,
           builder: (_, bool isInitialCountDown, __) => isInitialCountDown
-              ? Center(
-                  child: AnimatedBuilder(
-                    animation: _animation,
-                    builder: (_, __) => Opacity(
-                      opacity: _animation.value - _animation.value.toInt(),
-                      child: Text(
-                        _buildInitialCountDown(),
-                        style: TextStyle(
-                          fontSize: 72.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+              ? _AnimatedCountDown(_animation)
               : _Board(_manager, _deck),
+        ),
+      ),
+    );
+  }
+}
+
+class _AnimatedCountDown extends StatelessWidget {
+  const _AnimatedCountDown(this.animation, {Key? key}) : super(key: key);
+
+  final Animation animation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: AnimatedBuilder(
+        animation: animation,
+        builder: (_, __) => Opacity(
+          opacity: animation.value - animation.value.toInt(),
+          child: Text(
+            _buildInitialCountDown(),
+            style: TextStyle(
+              fontSize: 72.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            ),
+          ),
         ),
       ),
     );
   }
 
   String _buildInitialCountDown() {
-    final intPart = 3 - _animation.value.toInt();
+    final intPart = 3 - animation.value.toInt();
 
     return (intPart <= 0) ? 'Catch all!' : intPart.toString();
   }
@@ -143,19 +154,17 @@ class _Board extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return Center(
-      child: GridView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          mainAxisSpacing: 4.0,
-          crossAxisSpacing: 4.0,
-          childAspectRatio: size.aspectRatio * 1.8,
-        ),
-        itemCount: _deck.length,
-        itemBuilder: (_, index) => _DeckItem(_manager, _deck[index]),
+    return GridView.builder(
+      padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, .0),
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        mainAxisSpacing: 4.0,
+        crossAxisSpacing: 4.0,
+        childAspectRatio: size.aspectRatio * 1.8,
       ),
+      itemCount: _deck.length,
+      itemBuilder: (_, index) => _DeckItem(_manager, _deck[index]),
     );
   }
 }
