@@ -15,13 +15,20 @@ abstract class View {
         appBarTheme: AppBarTheme(
           titleTextStyle: TextStyle(
             fontSize: 24.sp,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w300,
             color: Palette.red,
           ),
           centerTitle: true,
           color: Palette.transparent,
           elevation: .0,
           iconTheme: const IconThemeData(color: Palette.red),
+        ),
+        textTheme: const TextTheme(
+          bodyText1: TextStyle(),
+          bodyText2: TextStyle(),
+        ).apply(
+          bodyColor: Palette.item,
+          displayColor: Palette.item,
         ),
       );
 }

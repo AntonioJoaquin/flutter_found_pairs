@@ -104,7 +104,7 @@ class _EmptyCard extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Palette.black),
         borderRadius: BorderRadius.circular(8.0),
-        image: DecorationImage(
+        image: const DecorationImage(
           image: AssetImage(Pictures.easyIcon),
           alignment: Alignment.center,
         ),

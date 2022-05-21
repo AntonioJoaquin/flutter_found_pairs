@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:found_pairs/utils/difficulty_mode_type.dart';
+import 'package:found_pairs/view/common/widgets/custom_button.dart';
 
 import '../../../di/locator.dart';
 import '../../common/style/palette.dart';
@@ -30,17 +31,21 @@ class _DifficultyModePageState extends State<DifficultyModePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        title: const Text('Difficulty mode'),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Spacer(),
             _DifficultyItem(DifficultyModeType.easy, _manager),
             spacer,
             _DifficultyItem(DifficultyModeType.medium, _manager),
             spacer,
             _DifficultyItem(DifficultyModeType.hard, _manager),
+            const Spacer(),
+            CustomButton('Play!', () {}),
           ],
         ),
       ),
@@ -68,19 +73,28 @@ class _DifficultyItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           decoration: BoxDecoration(
             border: Border.all(
-              color: (typeSelected.id == type.id) ? Palette.red : Palette.black,
+              width: (typeSelected.id == type.id) ? 1.0 : 2.0,
+              color: (typeSelected.id == type.id) ? type.color : Palette.item,
             ),
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Center(
-            child: Text(
-              type.text,
-              style: TextStyle(
-                fontSize: 20.sp,
-                color:
-                    (typeSelected.id == type.id) ? Palette.red : Palette.black,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Visibility(
+                visible: typeSelected.id == type.id,
+                child: Image.asset(type.difficultyIcon),
               ),
-            ),
+              Text(
+                type.text,
+                style: TextStyle(
+                  fontSize: 20.sp,
+                  fontWeight:
+                      (typeSelected.id == type.id) ? FontWeight.w300 : null,
+                  color: (typeSelected.id == type.id) ? type.color : null,
+                ),
+              ),
+            ],
           ),
         ),
       ),

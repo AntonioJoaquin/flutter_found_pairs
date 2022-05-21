@@ -1,13 +1,37 @@
+import 'package:flutter/widgets.dart';
+import 'package:found_pairs/view/common/style/pictures.dart';
+
+import '../view/common/style/palette.dart';
+
 enum DifficultyModeType {
-  easy(0, 'Easy Mode'),
-  medium(1, 'Medium Mode'),
-  hard(2, 'Hard Mode');
+  easy(
+    0,
+    Palette.red,
+    'Easy Mode',
+    Pictures.easyIcon,
+  ),
+  medium(
+    1,
+    Palette.blue,
+    'Medium Mode',
+    Pictures.mediumIcon,
+  ),
+  hard(
+    2,
+    Palette.black,
+    'Hard Mode',
+    Pictures.hardIcon,
+  );
 
   final int id;
+  final Color color;
   final String text;
+  final String difficultyIcon;
 
   const DifficultyModeType(
     this.id,
+    this.color,
     this.text,
+    this.difficultyIcon,
   );
 }
