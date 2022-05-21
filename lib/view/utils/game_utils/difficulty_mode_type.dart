@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:found_pairs/view/common/style/pictures.dart';
 
-import '../common/style/palette.dart';
+import '../../common/style/palette.dart';
+import '../../common/style/pictures.dart';
+import 'game_configuration.dart';
 
 enum DifficultyModeType {
   easy(
@@ -10,6 +11,7 @@ enum DifficultyModeType {
     'Easy Mode',
     Pictures.easyIcon,
     '',
+    GameConfiguration.easy,
   ),
   medium(
     1,
@@ -17,6 +19,7 @@ enum DifficultyModeType {
     'Medium Mode',
     Pictures.mediumIcon,
     '',
+    GameConfiguration.medium,
   ),
   hard(
     2,
@@ -24,6 +27,7 @@ enum DifficultyModeType {
     'Hard Mode',
     Pictures.hardIcon,
     '',
+    GameConfiguration.hard,
   );
 
   final int id;
@@ -31,6 +35,7 @@ enum DifficultyModeType {
   final String text;
   final String difficultyIcon;
   final String description;
+  final GameConfiguration gameConfiguration;
 
   const DifficultyModeType(
     this.id,
@@ -38,5 +43,6 @@ enum DifficultyModeType {
     this.text,
     this.difficultyIcon,
     this.description,
+    this.gameConfiguration,
   );
 }

@@ -4,7 +4,7 @@ import 'package:found_pairs/di/locator.dart';
 import 'package:found_pairs/view/common/constants.dart';
 
 import '../../common/style/palette.dart';
-import '../../utils/board_utils.dart';
+import '../../utils/game_utils/board_utils.dart';
 import 'board_manager.dart';
 import 'models/card_model.dart';
 import 'widgets/custom_card.dart';
@@ -27,7 +27,7 @@ class _BoardPageState extends State<BoardPage>
 
   @override
   void initState() {
-    _deck.addAll(BoardUtils.generateDeck(Constants.gamePairCards));
+    _deck.addAll(BoardUtils.generateDeck(Constants.hardGamePairCards));
 
     _initialCountDownController = AnimationController(
       vsync: this,

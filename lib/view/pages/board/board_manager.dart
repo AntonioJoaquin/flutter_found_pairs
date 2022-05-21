@@ -50,7 +50,7 @@ class BoardManager extends ViewManager {
     _canSelect = true;
 
     _remainedDuration.value =
-        const Duration(seconds: Constants.gameTimeInSeconds);
+        const Duration(seconds: Constants.easyGameTimeInSeconds);
     Future.delayed(
       const Duration(seconds: 1),
       () => {}, // _initTimer(),
@@ -95,7 +95,9 @@ class BoardManager extends ViewManager {
 
     _points++;
 
-    (_points == Constants.gamePairCards) ? _gameWon() : _restoreSelectedCards();
+    (_points == Constants.hardGamePairCards)
+        ? _gameWon()
+        : _restoreSelectedCards();
   }
 
   void _gameWon() {

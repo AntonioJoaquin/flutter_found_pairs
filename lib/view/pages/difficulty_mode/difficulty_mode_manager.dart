@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../common/custom_notifier.dart';
-import '../../utils/difficulty_mode_type.dart';
+import '../../utils/game_utils/difficulty_mode_type.dart';
 import '../../utils/router.dart';
 import '../../view_manager.dart';
 
