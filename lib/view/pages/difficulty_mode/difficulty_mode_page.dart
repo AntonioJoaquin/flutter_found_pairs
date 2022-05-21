@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:found_pairs/utils/difficulty_mode_type.dart';
-import 'package:found_pairs/view/common/widgets/custom_button.dart';
 
 import '../../../di/locator.dart';
 import '../../common/style/palette.dart';
+import '../../common/widgets/custom_button.dart';
+import '../../utils/difficulty_mode_type.dart';
 import 'difficulty_mode_manager.dart';
 
 class DifficultyModePage extends StatefulWidget {
@@ -45,7 +45,7 @@ class _DifficultyModePageState extends State<DifficultyModePage> {
             spacer,
             _DifficultyItem(DifficultyModeType.hard, _manager),
             const Spacer(),
-            CustomButton('Play!', () {}),
+            CustomButton('Play!', _manager.navigateToBoard),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
-import 'package:found_pairs/utils/router.dart';
-import 'package:found_pairs/view/view_manager.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../utils/router.dart';
+import '../../view_manager.dart';
 
 @injectable
 class HomeManager extends ViewManager {

@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:found_pairs/utils/router.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../common/constants.dart';
 import '../../common/custom_notifier.dart';
 import '../../common/play_dialog_types.dart';
+import '../../utils/router.dart';
 import '../../view_manager.dart';
 import 'models/card_model.dart';
 

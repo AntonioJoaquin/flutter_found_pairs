@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 
-import '../view/pages/board/board_page.dart';
-import '../view/pages/difficulty_mode/difficulty_mode_page.dart';
-import '../view/pages/home/home_page.dart';
+import '../pages/board/board_page.dart';
+import '../pages/difficulty_mode/difficulty_mode_page.dart';
+import '../pages/home/home_page.dart';
 
 abstract class AppRouter {
   static const String homeRoute = '/';

@@ -1,7 +1,9 @@
-import 'package:found_pairs/utils/difficulty_mode_type.dart';
-import 'package:found_pairs/view/common/custom_notifier.dart';
-import 'package:found_pairs/view/view_manager.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../common/custom_notifier.dart';
+import '../../utils/difficulty_mode_type.dart';
+import '../../utils/router.dart';
+import '../../view_manager.dart';
 
 @injectable
 class DifficultyModeManager extends ViewManager {
@@ -19,6 +21,11 @@ class DifficultyModeManager extends ViewManager {
   // setters
   void selectDifficulty(DifficultyModeType type) =>
       _difficultySelected.value = type;
+
+  // navigation
+  void navigateToBoard() {
+    navigationService.pushNamed(AppRouter.boardRoute);
+  }
 
   void dispose() {
     _difficultySelected.dispose();

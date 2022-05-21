@@ -1,6 +1,6 @@
 import 'package:found_pairs/view/common/style/pictures.dart';
 
-import '../view/pages/board/models/card_model.dart';
+import '../pages/board/models/card_model.dart';
 
 abstract class BoardUtils {
   static List<CardModel> generateDeck(int numPairs) {

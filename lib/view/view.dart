@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../utils/router.dart';
+import 'utils/router.dart';
 import 'common/style/palette.dart';
 
 abstract class View {
