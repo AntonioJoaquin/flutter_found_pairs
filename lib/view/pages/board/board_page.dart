@@ -5,6 +5,7 @@ import 'package:found_pairs/view/common/constants.dart';
 
 import '../../common/style/palette.dart';
 import '../../utils/game_utils/board_utils.dart';
+import '../../utils/game_utils/game_configuration.dart';
 import 'board_manager.dart';
 import 'models/card_model.dart';
 import 'widgets/custom_card.dart';
@@ -49,6 +50,8 @@ class _BoardPageState extends State<BoardPage>
     for (CardModel card in _deck) {
       card.dispose();
     }
+
+    locator.unregister<GameConfiguration>();
 
     super.dispose();
   }

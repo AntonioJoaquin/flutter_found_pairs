@@ -1,7 +1,9 @@
 import 'package:injectable/injectable.dart';
 
+import '../../../di/locator.dart';
 import '../../common/custom_notifier.dart';
 import '../../utils/game_utils/difficulty_mode_type.dart';
+import '../../utils/game_utils/game_configuration.dart';
 import '../../utils/router.dart';
 import '../../view_manager.dart';
 
@@ -22,8 +24,15 @@ class DifficultyModeManager extends ViewManager {
   void selectDifficulty(DifficultyModeType type) =>
       _difficultySelected.value = type;
 
+  // actions
+  void _saveGameConfiguration() => locator.registerSingleton<GameConfiguration>(
+        _difficultySelected.value.gameConfiguration,
+      );
+
   // navigation
   void navigateToBoard() {
+    _saveGameConfiguration();
+
     navigationService.pushNamed(AppRouter.boardRoute);
   }
 
