@@ -37,6 +37,7 @@ class _DifficultyModePageState extends State<DifficultyModePage> {
         padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Spacer(),
             _DifficultyItem(DifficultyModeType.easy, _manager),
@@ -44,6 +45,17 @@ class _DifficultyModePageState extends State<DifficultyModePage> {
             _DifficultyItem(DifficultyModeType.medium, _manager),
             spacer,
             _DifficultyItem(DifficultyModeType.hard, _manager),
+            const Spacer(),
+            ValueListenableBuilder(
+              valueListenable: _manager.difficultySelected,
+              builder: (_, DifficultyModeType type, __) => Text(
+                type.description,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
             const Spacer(),
             CustomButton('Play!', _manager.navigateToBoard),
           ],
