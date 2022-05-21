@@ -5,6 +5,6 @@ import 'package:injectable/injectable.dart';
 @injectable
 class HomeManager extends ViewManager {
   // navigation
-  void navigateToBoardGame() =>
-      navigationService.pushNamed(AppRouter.boardRoute);
+  void navigateToDifficultyMode() =>
+      navigationService.pushNamed(AppRouter.difficultyModeRoute);
 }
