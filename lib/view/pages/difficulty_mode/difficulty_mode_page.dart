@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:found_pairs/view/common/widgets/custom_button.dart';
+import 'package:found_pairs/utils/difficulty_mode_type.dart';
 
+import '../../../di/locator.dart';
 import '../../common/style/palette.dart';
+import 'difficulty_mode_manager.dart';
 
-class DifficultyModePage extends StatelessWidget {
+class DifficultyModePage extends StatefulWidget {
   const DifficultyModePage({Key? key}) : super(key: key);
+
+  @override
+  State<DifficultyModePage> createState() => _DifficultyModePageState();
+}
+
+class _DifficultyModePageState extends State<DifficultyModePage> {
+  final DifficultyModeManager _manager = locator<DifficultyModeManager>();
+
+  @override
+  void dispose() {
+    _manager.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +36,11 @@ class DifficultyModePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const _DifficultyItem('Easy Mode'),
+            _DifficultyItem(DifficultyModeType.easy, _manager),
             spacer,
-            const _DifficultyItem('Medium Mode'),
+            _DifficultyItem(DifficultyModeType.medium, _manager),
             spacer,
-            const _DifficultyItem('Hard Mode'),
+            _DifficultyItem(DifficultyModeType.hard, _manager),
           ],
         ),
       ),
@@ -34,25 +50,37 @@ class DifficultyModePage extends StatelessWidget {
 
 class _DifficultyItem extends StatelessWidget {
   const _DifficultyItem(
-    this.text, {
+    this.type,
+    this.manager, {
     Key? key,
   }) : super(key: key);
 
-  final String text;
+  final DifficultyModeType type;
+  final DifficultyModeManager manager;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: Palette.black),
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 20.sp,
+    return ValueListenableBuilder(
+      valueListenable: manager.difficultySelected,
+      builder: (_, DifficultyModeType typeSelected, __) => GestureDetector(
+        onTap: () => manager.selectDifficulty(type),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: (typeSelected.id == type.id) ? Palette.red : Palette.black,
+            ),
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: Center(
+            child: Text(
+              type.text,
+              style: TextStyle(
+                fontSize: 20.sp,
+                color:
+                    (typeSelected.id == type.id) ? Palette.red : Palette.black,
+              ),
+            ),
           ),
         ),
       ),
