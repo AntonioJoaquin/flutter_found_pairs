@@ -5,18 +5,19 @@ import '../../../di/locator.dart';
 import '../../../core/common/palette.dart';
 import '../../utils/game_utils/board_utils.dart';
 import '../../utils/game_utils/game_configuration.dart';
+import 'board_arguments.dart';
 import 'board_manager.dart';
 import 'models/card_model.dart';
 import 'widgets/custom_card.dart';
 
 class BoardPage extends StatefulWidget {
   const BoardPage(
-    GameConfiguration gameConfiguration, {
+    BoardArguments boardArguments, {
     Key? key,
-  })  : _gameConfiguration = gameConfiguration,
+  })  : _boardArguments = boardArguments,
         super(key: key);
 
-  final GameConfiguration _gameConfiguration;
+  final BoardArguments _boardArguments;
 
   @override
   State<BoardPage> createState() => _BoardPageState();
@@ -33,9 +34,9 @@ class _BoardPageState extends State<BoardPage>
 
   @override
   void initState() {
-    _deck.addAll(
-      BoardUtils.generateDeck(widget._gameConfiguration.pairsNumber),
-    );
+    _deck.addAll(BoardUtils.generateDeck(
+      widget._boardArguments.gameConfiguration.pairsNumber,
+    ));
 
     _initialCountDownController = AnimationController(
       vsync: this,
@@ -63,7 +64,7 @@ class _BoardPageState extends State<BoardPage>
 
   void _initialCountDownListener(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
-      _manager.start(widget._gameConfiguration);
+      _manager.start(widget._boardArguments);
     }
   }
 
@@ -80,7 +81,11 @@ class _BoardPageState extends State<BoardPage>
           valueListenable: _manager.isInitialCountDown,
           builder: (_, bool isInitialCountDown, __) => isInitialCountDown
               ? _AnimatedCountDown(_animation)
-              : _Board(_manager, widget._gameConfiguration, _deck),
+              : _Board(
+                  _manager,
+                  widget._boardArguments.gameConfiguration,
+                  _deck,
+                ),
         ),
       ),
     );

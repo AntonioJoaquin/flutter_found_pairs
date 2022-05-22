@@ -1,22 +1,30 @@
+import '../../../../domain/model/score_model.dart';
 import '../../../../objectbox.g.dart';
 import '../database/app_database.dart';
 import '../entity/score.dart';
 
 abstract class ScoreDao {
-  static Future<bool> storeScore(
-    String name,
-    int score,
-    int timeInSeconds,
-  ) async {
+  static Future<bool> storeScore(ScoreModel scoreItem) async {
     final scoreBox = AppDatabase.appDatabase.store.box<Score>();
-    final List<Score> scores =
-        scoreBox.query(Score_.name.equals(name)).build().find();
+    final List<Score> scores = scoreBox
+        .query(Score_.name
+            .equals(scoreItem.name)
+            .and(Score_.difficultyId.equals(scoreItem.difficultyId)))
+        .build()
+        .find();
 
     scores.isNotEmpty
         ? scoreBox.put(scores.first
-          ..setScore(score)
-          ..setScore(score))
-        : scoreBox.put(Score(name, score, timeInSeconds));
+          ..setScore(scoreItem.score)
+          ..setTime(scoreItem.timeInSeconds))
+        : scoreBox.put(
+            Score(
+              scoreItem.name,
+              scoreItem.difficultyId,
+              scoreItem.score,
+              scoreItem.timeInSeconds,
+            ),
+          );
 
     return true;
   }

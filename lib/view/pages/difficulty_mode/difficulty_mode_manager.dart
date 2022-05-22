@@ -4,15 +4,10 @@ import '../../../core/common/custom_notifiers.dart';
 import '../../utils/game_utils/difficulty_mode_type.dart';
 import '../../utils/router.dart';
 import '../../view_manager.dart';
+import '../board/board_arguments.dart';
 
 @injectable
 class DifficultyModeManager extends ViewManager {
-  final List<String> difficultyModes = [
-    'Easy Mode',
-    'Medium Mode',
-    'Hard Mode',
-  ];
-
   final CustomValueNotifier<DifficultyModeType> _difficultySelected =
       CustomValueNotifier(DifficultyModeType.easy);
   CustomValueNotifier<DifficultyModeType> get difficultySelected =>
@@ -25,7 +20,10 @@ class DifficultyModeManager extends ViewManager {
   // navigation
   void navigateToBoard() => navigationService.pushNamedWithArguments(
         AppRouter.boardRoute,
-        _difficultySelected.value.gameConfiguration,
+        BoardArguments(
+          _difficultySelected.value.id,
+          _difficultySelected.value.gameConfiguration,
+        ),
       );
 
   @override

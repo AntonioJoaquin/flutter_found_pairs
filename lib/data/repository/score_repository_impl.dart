@@ -17,13 +17,8 @@ class ScoreRepositoryImpl extends BaseRepository implements ScoreRepository {
       );
 
   @override
-  Future<Result<void>> saveScore(
-    String name,
-    int score,
-    int timeInSeconds,
-  ) =>
-      safeDbCall(
-        ScoreDao.storeScore(name, score, timeInSeconds),
+  Future<Result<void>> saveScore(ScoreModel scoreItem) => safeDbCall(
+        ScoreDao.storeScore(scoreItem),
         mapper: (_) {},
       );
 }

@@ -178,6 +178,7 @@ class _ScoreNameForm extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       _manager.saveScore(
         _controller.value.text,
+        arguments.difficultyId,
         arguments.score,
         arguments.timeInSeconds,
       );

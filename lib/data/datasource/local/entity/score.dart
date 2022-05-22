@@ -5,12 +5,13 @@ class Score {
   // Each "Entity" needs a unique integer ID property.
   int id = 0;
 
-  @Unique()
+  @Index(type: IndexType.value)
   String name;
+  int difficultyId;
   int score;
   int timeInSeconds;
 
-  Score(this.name, this.score, this.timeInSeconds);
+  Score(this.name, this.difficultyId, this.score, this.timeInSeconds);
 
   Score setScore(int score) {
     this.score = score;

@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 
+import '../pages/board/board_arguments.dart';
 import '../pages/board/board_page.dart';
 import '../pages/difficulty_mode/difficulty_mode_page.dart';
 import '../pages/home/home_page.dart';
 import '../pages/ranking/ranking_page.dart';
 import '../pages/score/score_arguments.dart';
 import '../pages/score/score_page.dart';
-import 'game_utils/game_configuration.dart';
 
 abstract class AppRouter {
   static const String homeRoute = '/';
@@ -30,7 +30,7 @@ abstract class AppRouter {
 
       case boardRoute:
         return _fadeRoute(
-          BoardPage(settings.arguments as GameConfiguration),
+          BoardPage(settings.arguments as BoardArguments),
           boardRoute,
         );
 

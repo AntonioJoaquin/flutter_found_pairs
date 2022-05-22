@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:2539904633605805375",
-      "lastPropertyId": "4:3772255534073658246",
+      "lastPropertyId": "5:4337478535960312943",
       "name": "Score",
       "properties": [
         {
@@ -18,7 +18,7 @@
           "id": "2:6323830737902222374",
           "name": "name",
           "type": 9,
-          "flags": 2080,
+          "flags": 8,
           "indexId": "1:5099535020275727060"
         },
         {
@@ -30,19 +30,26 @@
           "id": "4:3772255534073658246",
           "name": "timeInSeconds",
           "type": 6
+        },
+        {
+          "id": "5:4337478535960312943",
+          "name": "difficultyId",
+          "type": 6
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "1:2539904633605805375",
-  "lastIndexId": "1:5099535020275727060",
+  "lastIndexId": "2:1944607591902337361",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
-  "retiredIndexUids": [],
+  "retiredIndexUids": [
+    1944607591902337361
+  ],
   "retiredPropertyUids": [],
   "retiredRelationUids": [],
   "version": 1

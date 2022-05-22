@@ -133,7 +133,7 @@ class _RankingItem extends StatelessWidget {
         ),
       ),
       trailing: Text(
-        _score.score.toString(),
+        _score.difficultyId.toString(),
         style: TextStyle(
           fontSize: 18.sp,
         ),

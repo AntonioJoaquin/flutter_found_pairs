@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:found_pairs/view/pages/score/score_arguments.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../core/common/custom_notifiers.dart';
 import '../../../core/common/play_dialog_types.dart';
-import '../../utils/game_utils/game_configuration.dart';
 import '../../utils/router.dart';
 import '../../view_manager.dart';
+import '../score/score_arguments.dart';
+import 'board_arguments.dart';
 import 'models/card_model.dart';
 
 @injectable
@@ -31,7 +31,7 @@ class BoardManager extends ViewManager {
   CardModel? _firstCardSelected;
   CardModel? _secondCardSelected;
 
-  late GameConfiguration _gameConfiguration;
+  late BoardArguments _boardArguments;
 
   // setters
   void setCanSelect(bool can) => _canSelect = can;
@@ -48,13 +48,13 @@ class BoardManager extends ViewManager {
   }
 
   // actions
-  void start(GameConfiguration gameConfiguration) {
-    _gameConfiguration = gameConfiguration;
+  void start(BoardArguments boardArguments) {
+    _boardArguments = boardArguments;
     _isInitialCountDown.value = false;
     _canSelect = true;
 
     _remainedDuration.value = Duration(
-      seconds: gameConfiguration.timeInSeconds,
+      seconds: _boardArguments.gameConfiguration.timeInSeconds,
     );
     Future.delayed(
       const Duration(seconds: 1),
@@ -100,7 +100,7 @@ class BoardManager extends ViewManager {
 
     _points++;
 
-    (_points == _gameConfiguration.pairsNumber)
+    (_points == _boardArguments.gameConfiguration.pairsNumber)
         ? _gameWon()
         : _restoreSelectedCards();
   }
@@ -182,7 +182,8 @@ class BoardManager extends ViewManager {
   void _navigateToScore() => navigationService.pushNamedWithArguments(
         AppRouter.scoreRoute,
         ScoreArguments(
-          _gameConfiguration.pairsNumber,
+          _boardArguments.difficultyId,
+          _boardArguments.gameConfiguration.pairsNumber,
           _remainedDuration.value!.inSeconds,
         ),
       );

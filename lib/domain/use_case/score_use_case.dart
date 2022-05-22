@@ -6,5 +6,5 @@ abstract class GetScoresUseCase {
 }
 
 abstract class SaveScoreUseCase {
-  Future<Result<void>> saveScore(String name, int score, int timeInSeconds);
+  Future<Result<void>> saveScore(ScoreModel scoreItem);
 }
