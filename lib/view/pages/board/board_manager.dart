@@ -165,6 +165,7 @@ class BoardManager extends ViewManager {
 
     dialogService.showPlayDialog(PlayDialogType.pause, [
       _resume,
+      _navigateToSettings,
       navigateToHome,
     ]);
 
@@ -178,6 +179,9 @@ class BoardManager extends ViewManager {
 
     super.navigateToHome();
   }
+
+  void _navigateToSettings() =>
+      navigationService.pushNamed(AppRouter.settingsRoute);
 
   void _navigateToScore() => navigationService.pushNamedWithArguments(
         AppRouter.scoreRoute,

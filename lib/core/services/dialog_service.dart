@@ -265,8 +265,15 @@ class DialogService {
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: _CustomButton(
-              'Exit',
+              'Settings',
               () => onTaps[1].call(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: _CustomButton(
+              'Exit',
+              () => onTaps[2].call(),
             ),
           ),
         ],
