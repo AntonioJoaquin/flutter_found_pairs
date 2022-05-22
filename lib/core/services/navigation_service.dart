@@ -106,9 +106,10 @@ class NavigationService {
     }
   }
 
-  Future pushReplacement<T>(String routeName) async {
+  Future pushReplacement<T>(String routeName, [Object? argument]) async {
     try {
-      return _navigatorKey.currentState?.pushReplacementNamed(routeName);
+      return _navigatorKey.currentState
+          ?.pushReplacementNamed(routeName, arguments: argument);
     } on Exception catch (error) {
       if (kDebugMode) {
         print('Exception occurred in pushReplacementNamed: $error');

@@ -131,7 +131,7 @@ class BoardManager extends ViewManager {
 
   void _retry() {
     navigationService.pop(); // Close dialog
-    navigationService.pushReplacement(AppRouter.boardRoute);
+    navigationService.pushReplacement(AppRouter.boardRoute, _boardArguments);
   }
 
   // shows

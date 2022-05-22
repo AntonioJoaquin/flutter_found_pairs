@@ -108,7 +108,7 @@ class _AnimatedCountDown extends StatelessWidget {
           child: Text(
             _buildInitialCountDown(),
             style: TextStyle(
-              fontSize: 72.sp,
+              fontSize: 64.sp,
               fontWeight: FontWeight.bold,
               color: Palette.red,
             ),
