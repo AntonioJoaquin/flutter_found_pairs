@@ -259,13 +259,13 @@ class DialogService {
           ),
           SizedBox(height: size.height * .05),
           _CustomButton(
-            'Go home',
+            'Resume',
             () => onTaps[0].call(),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: _CustomButton(
-              'Close',
+              'Exit',
               () => onTaps[1].call(),
             ),
           ),

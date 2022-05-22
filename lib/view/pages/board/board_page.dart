@@ -175,7 +175,7 @@ class _Board extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, .0),
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
+        crossAxisCount: _gameConfiguration.cardColumns,
         mainAxisSpacing: 4.0,
         crossAxisSpacing: 4.0,
         childAspectRatio: size.aspectRatio * 1.8,

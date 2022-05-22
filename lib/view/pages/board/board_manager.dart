@@ -164,8 +164,8 @@ class BoardManager extends ViewManager {
     _timer?.cancel();
 
     dialogService.showPlayDialog(PlayDialogType.pause, [
-      navigateToHome,
       _resume,
+      navigateToHome,
     ]);
 
     return false;
