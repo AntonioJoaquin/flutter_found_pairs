@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../common/constants.dart';
 import '../../common/custom_notifier.dart';
 import '../../common/play_dialog_types.dart';
+import '../../utils/game_utils/game_configuration.dart';
 import '../../utils/router.dart';
 import '../../view_manager.dart';
 import 'models/card_model.dart';
@@ -30,6 +30,8 @@ class BoardManager extends ViewManager {
   CardModel? _firstCardSelected;
   CardModel? _secondCardSelected;
 
+  late GameConfiguration _gameConfiguration;
+
   // setters
   void setCanSelect(bool can) => _canSelect = can;
 
@@ -45,12 +47,14 @@ class BoardManager extends ViewManager {
   }
 
   // actions
-  void start() {
+  void start(GameConfiguration gameConfiguration) {
+    _gameConfiguration = gameConfiguration;
     _isInitialCountDown.value = false;
     _canSelect = true;
 
-    _remainedDuration.value =
-        const Duration(seconds: Constants.easyGameTimeInSeconds);
+    _remainedDuration.value = Duration(
+      seconds: gameConfiguration.timeInSeconds,
+    );
     Future.delayed(
       const Duration(seconds: 1),
       () => {}, // _initTimer(),
@@ -95,7 +99,7 @@ class BoardManager extends ViewManager {
 
     _points++;
 
-    (_points == Constants.hardGamePairCards)
+    (_points == _gameConfiguration.pairsNumber)
         ? _gameWon()
         : _restoreSelectedCards();
   }

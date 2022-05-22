@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:found_pairs/di/locator.dart';
-import 'package:found_pairs/view/common/constants.dart';
 
+import '../../../di/locator.dart';
 import '../../common/style/palette.dart';
 import '../../utils/game_utils/board_utils.dart';
 import '../../utils/game_utils/game_configuration.dart';
@@ -34,9 +33,9 @@ class _BoardPageState extends State<BoardPage>
 
   @override
   void initState() {
-    print('Game: ${widget._gameConfiguration}');
-
-    _deck.addAll(BoardUtils.generateDeck(Constants.hardGamePairCards));
+    _deck.addAll(
+      BoardUtils.generateDeck(widget._gameConfiguration.pairsNumber),
+    );
 
     _initialCountDownController = AnimationController(
       vsync: this,
@@ -59,14 +58,12 @@ class _BoardPageState extends State<BoardPage>
       card.dispose();
     }
 
-    locator.unregister<GameConfiguration>();
-
     super.dispose();
   }
 
   void _initialCountDownListener(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
-      _manager.start();
+      _manager.start(widget._gameConfiguration);
     }
   }
 
@@ -83,7 +80,7 @@ class _BoardPageState extends State<BoardPage>
           valueListenable: _manager.isInitialCountDown,
           builder: (_, bool isInitialCountDown, __) => isInitialCountDown
               ? _AnimatedCountDown(_animation)
-              : _Board(_manager, _deck),
+              : _Board(_manager, widget._gameConfiguration, _deck),
         ),
       ),
     );
@@ -153,13 +150,16 @@ class _Timer extends StatelessWidget {
 class _Board extends StatelessWidget {
   const _Board(
     BoardManager manager,
+    GameConfiguration gameConfiguration,
     List<CardModel> deck, {
     Key? key,
   })  : _manager = manager,
+        _gameConfiguration = gameConfiguration,
         _deck = deck,
         super(key: key);
 
   final BoardManager _manager;
+  final GameConfiguration _gameConfiguration;
   final List<CardModel> _deck;
 
   @override
@@ -176,7 +176,11 @@ class _Board extends StatelessWidget {
         childAspectRatio: size.aspectRatio * 1.8,
       ),
       itemCount: _deck.length,
-      itemBuilder: (_, index) => _DeckItem(_manager, _deck[index]),
+      itemBuilder: (_, index) => _DeckItem(
+        _manager,
+        _gameConfiguration,
+        _deck[index],
+      ),
     );
   }
 }
@@ -184,13 +188,16 @@ class _Board extends StatelessWidget {
 class _DeckItem extends StatelessWidget {
   const _DeckItem(
     BoardManager manager,
+    GameConfiguration gameConfiguration,
     CardModel card, {
     Key? key,
   })  : _manager = manager,
+        _gameConfiguration = gameConfiguration,
         _card = card,
         super(key: key);
 
   final BoardManager _manager;
+  final GameConfiguration _gameConfiguration;
   final CardModel _card;
 
   @override
@@ -199,7 +206,12 @@ class _DeckItem extends StatelessWidget {
       valueListenable: _card.isPairFounded,
       builder: (_, bool isPairFounded, __) => GestureDetector(
         onTap: () => _onItemTap(isPairFounded),
-        child: CustomCard(_card, _manager.checkPair, isPairFounded),
+        child: CustomCard(
+          _card,
+          _manager.checkPair,
+          isPairFounded,
+          _gameConfiguration,
+        ),
       ),
     );
   }
