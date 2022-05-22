@@ -22,6 +22,6 @@ class SaveScoreUseCaseImpl extends SaveScoreUseCase {
   SaveScoreUseCaseImpl(this._repository);
 
   @override
-  Future<Result<void>> saveScore(String name, int score) =>
-      _repository.saveScore(name, score);
+  Future<Result<void>> saveScore(String name, int score, int timeInSeconds) =>
+      _repository.saveScore(name, score, timeInSeconds);
 }

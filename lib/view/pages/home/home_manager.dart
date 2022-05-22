@@ -8,4 +8,7 @@ class HomeManager extends ViewManager {
   // navigation
   void navigateToDifficultyMode() =>
       navigationService.pushNamed(AppRouter.difficultyModeRoute);
+
+  void navigateToRanking() =>
+      navigationService.pushNamed(AppRouter.rankingRoute);
 }

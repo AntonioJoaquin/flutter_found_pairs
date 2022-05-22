@@ -5,10 +5,12 @@ import 'package:flutter/cupertino.dart';
 import '../pages/board/board_page.dart';
 import '../pages/difficulty_mode/difficulty_mode_page.dart';
 import '../pages/home/home_page.dart';
+import '../pages/ranking/ranking_page.dart';
 import 'game_utils/game_configuration.dart';
 
 abstract class AppRouter {
   static const String homeRoute = '/';
+  static const String rankingRoute = '/ranking';
   static const String difficultyModeRoute = '/difficulty_mode';
   static const String boardRoute = '/board';
 
@@ -16,6 +18,9 @@ abstract class AppRouter {
     switch (settings.name) {
       case homeRoute:
         return _fadeRoute(const HomePage(), homeRoute);
+
+      case rankingRoute:
+        return _fadeRoute(const RankingPage(), rankingRoute);
 
       case difficultyModeRoute:
         return _fadeRoute(const DifficultyModePage(), difficultyModeRoute);

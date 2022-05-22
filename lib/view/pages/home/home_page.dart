@@ -4,12 +4,26 @@ import '../../../di/locator.dart';
 import '../../common/widgets/custom_button.dart';
 import 'home_manager.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final HomeManager _manager = locator<HomeManager>();
+
+  @override
+  void dispose() {
+    _manager.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final HomeManager _manager = locator<HomeManager>();
+    final spacer = SizedBox(height: MediaQuery.of(context).size.height * .05);
 
     return Scaffold(
       appBar: AppBar(
@@ -17,11 +31,19 @@ class HomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
-        child: Center(
-          child: CustomButton(
-            'New game',
-            _manager.navigateToDifficultyMode,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomButton(
+              'New game',
+              _manager.navigateToDifficultyMode,
+            ),
+            spacer,
+            CustomButton(
+              'Ranking',
+              _manager.navigateToRanking,
+            ),
+          ],
         ),
       ),
     );
