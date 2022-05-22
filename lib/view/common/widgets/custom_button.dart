@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../style/palette.dart';
+import '../../../core/common/palette.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(

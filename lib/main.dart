@@ -6,6 +6,8 @@ import 'di/locator.dart';
 import 'view/view.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   setUpLocator();
   final _navigatorKey = navigatorKeyBuilder(GlobalKey<NavigatorState>());
 

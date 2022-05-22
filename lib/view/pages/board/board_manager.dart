@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../common/custom_notifier.dart';
-import '../../common/play_dialog_types.dart';
+import '../../../core/common/custom_notifiers.dart';
+import '../../../core/common/play_dialog_types.dart';
 import '../../utils/game_utils/game_configuration.dart';
 import '../../utils/router.dart';
 import '../../view_manager.dart';
@@ -177,8 +177,11 @@ class BoardManager extends ViewManager {
     navigationService.popUntil(AppRouter.homeRoute);
   }
 
+  @override
   void dispose() {
     _isInitialCountDown.dispose();
     _remainedDuration.dispose();
+
+    super.dispose();
   }
 }

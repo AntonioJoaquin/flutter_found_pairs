@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 
-class CustomValueNotifier<T> extends ChangeNotifier
-    implements ValueListenable<T> {
+class CustomValueNotifier<T> extends ChangeNotifier implements ValueListenable<T> {
   bool _isDisposed;
 
-  CustomValueNotifier(this._value, [this._isDisposed = false]);
+  CustomValueNotifier(
+    this._value,
+    [this._isDisposed = false]
+  );
 
   @override
   T get value => _value;

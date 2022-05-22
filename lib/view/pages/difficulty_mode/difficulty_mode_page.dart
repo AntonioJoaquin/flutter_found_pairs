@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../di/locator.dart';
-import '../../common/style/palette.dart';
+import '../../../core/common/palette.dart';
 import '../../common/widgets/custom_button.dart';
 import '../../utils/game_utils/difficulty_mode_type.dart';
 import 'difficulty_mode_manager.dart';

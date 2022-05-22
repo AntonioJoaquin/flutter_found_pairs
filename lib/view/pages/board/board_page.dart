@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../di/locator.dart';
-import '../../common/style/palette.dart';
+import '../../../core/common/palette.dart';
 import '../../utils/game_utils/board_utils.dart';
 import '../../utils/game_utils/game_configuration.dart';
 import 'board_manager.dart';

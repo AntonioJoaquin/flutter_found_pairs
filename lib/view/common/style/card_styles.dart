@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'palette.dart';
+import '../../../core/common/palette.dart';
 
 abstract class CardStyles {
   static const Gradient easyBackDesign = LinearGradient(

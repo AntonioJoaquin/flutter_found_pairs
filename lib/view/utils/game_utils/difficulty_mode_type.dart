@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../../common/style/palette.dart';
+import '../../../core/common/palette.dart';
 import '../../common/style/pictures.dart';
 import 'game_configuration.dart';
 

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../../common/style/palette.dart';
+import '../../../../core/common/palette.dart';
 import '../../../utils/game_utils/game_configuration.dart';
 import '../models/card_model.dart';
 

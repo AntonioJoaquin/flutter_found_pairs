@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-import '../view/common/widgets/custom_button.dart';
-import '../view/common/play_dialog_types.dart';
+import '../common/palette.dart';
+import '../common/play_dialog_types.dart';
 
 @lazySingleton
 class DialogService {
@@ -200,18 +200,18 @@ class DialogService {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: size.height * .05),
-          CustomButton(
+          _CustomButton(
             'View stadistics',
             () => onTaps[0].call(),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: CustomButton(
+            child: _CustomButton(
               'Save in ranking',
               () => onTaps[1].call(),
             ),
           ),
-          CustomButton(
+          _CustomButton(
             'Go home',
             () => onTaps[2].call(), // _manager.navigateToBoardGame,),
           ),
@@ -235,13 +235,13 @@ class DialogService {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: size.height * .05),
-          CustomButton(
+          _CustomButton(
             'Retry',
             () => onTaps[0].call(),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: CustomButton(
+            child: _CustomButton(
               'Go home',
               () => onTaps[1].call(),
             ),
@@ -260,17 +260,54 @@ class DialogService {
             ),
           ),
           SizedBox(height: size.height * .05),
-          CustomButton(
+          _CustomButton(
             'Go home',
             () => onTaps[0].call(),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: CustomButton(
+            child: _CustomButton(
               'Close',
               () => onTaps[1].call(),
             ),
           ),
         ],
       );
+}
+
+class _CustomButton extends StatelessWidget {
+  const _CustomButton(
+    String text,
+    Function onTap, {
+    Key? key,
+  })  : _text = text,
+        _onTap = onTap,
+        super(key: key);
+
+  final String _text;
+  final Function _onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => _onTap.call(),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          color: Palette.red,
+        ),
+        child: Text(
+          _text,
+          style: const TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.w300,
+            color: Palette.white,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
 }

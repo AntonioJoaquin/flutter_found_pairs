@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../../../common/custom_notifier.dart';
+import '../../../../core/common/custom_notifiers.dart';
 
 class CardModel {
   final int value;

@@ -1,8 +1,19 @@
-import '../di/locator.dart';
-import '../services/dialog_service.dart';
-import '../services/navigation_service.dart';
+import '../core/core/core_manager.dart';
+import '../domain/common/error_type.dart';
 
-abstract class ViewManager {
-  final NavigationService navigationService = locator<NavigationService>();
-  final DialogService dialogService = locator<DialogService>();
+abstract class ViewManager extends CoreManager {
+  runRequest<T>({
+    required Function functionRequest,
+    Function(T)? onSuccess,
+    Function(ErrorType, String)? onError,
+    bool isRetrying = false,
+  }) async {
+    var result = await functionRequest.call();
+    result.when(
+      success: (response) => onSuccess?.call(response),
+      error: (errorType, message) => onError?.call(errorType, message),
+    );
+
+    return result;
+  }
 }

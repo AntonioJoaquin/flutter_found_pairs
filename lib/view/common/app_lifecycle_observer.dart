@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:found_pairs/di/locator.dart';
-import 'package:found_pairs/view/common/custom_notifier.dart';
+
+import '../../core/common/custom_notifiers.dart';
+import '../../di/locator.dart';
 
 class AppLifecycleObserver extends StatefulWidget {
   const AppLifecycleObserver({required this.child, Key? key}) : super(key: key);
