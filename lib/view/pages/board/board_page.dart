@@ -11,7 +11,13 @@ import 'models/card_model.dart';
 import 'widgets/custom_card.dart';
 
 class BoardPage extends StatefulWidget {
-  const BoardPage({Key? key}) : super(key: key);
+  const BoardPage(
+    GameConfiguration gameConfiguration, {
+    Key? key,
+  })  : _gameConfiguration = gameConfiguration,
+        super(key: key);
+
+  final GameConfiguration _gameConfiguration;
 
   @override
   State<BoardPage> createState() => _BoardPageState();
@@ -28,6 +34,8 @@ class _BoardPageState extends State<BoardPage>
 
   @override
   void initState() {
+    print('Game: ${widget._gameConfiguration}');
+
     _deck.addAll(BoardUtils.generateDeck(Constants.hardGamePairCards));
 
     _initialCountDownController = AnimationController(

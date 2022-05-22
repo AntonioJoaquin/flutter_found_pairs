@@ -6,7 +6,8 @@ import 'common/style/palette.dart';
 
 abstract class View {
   /// Routing
-  static Map<String, WidgetBuilder> getRoutes() => AppRouter.routes;
+  static Route<dynamic> getRoutes(RouteSettings settings) =>
+      AppRouter.generateRoute(settings);
 
   static String getInitialRoute() => AppRouter.homeRoute;
 

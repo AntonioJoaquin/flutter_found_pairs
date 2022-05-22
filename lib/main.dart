@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           title: 'Material App',
           navigatorKey: _navigatorKey,
           theme: View.theme,
-          routes: View.getRoutes(),
+          onGenerateRoute: View.getRoutes,
           initialRoute: View.getInitialRoute(),
         ),
       ),
