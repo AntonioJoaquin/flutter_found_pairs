@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../../../domain/common/error_type.dart';
 import '../../../domain/common/result.dart';
 
-typedef EntityToModelMapper<Entity, Model> = Model? Function(Entity? entity);
+typedef EntityToModelMapper<Entity, Model> = Model Function(Entity entity);
 typedef ResponseToModelMapper<Response, Model> = Model Function(
     Response response);
 typedef SaveResult<Response> = Future Function(Response response);
@@ -18,7 +18,7 @@ abstract class BaseRepository {
         if (kDebugMode) {
           print('DB success message -> $response');
         }
-        return Success(mapper.call(response)!);
+        return Success(mapper.call(response));
       } else {
         if (kDebugMode) {
           print('DB response is null');

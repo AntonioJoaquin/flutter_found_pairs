@@ -13,8 +13,7 @@ class ScoreRepositoryImpl extends BaseRepository implements ScoreRepository {
   @override
   Future<Result<List<ScoreModel>>> getScores() => safeDbCall(
         ScoreDao.getScores(),
-        mapper: (List<Score>? scores) =>
-            scores?.map((e) => e.toModel()).toList(),
+        mapper: (List<Score> scores) => scores.map((e) => e.toModel()).toList(),
       );
 
   @override

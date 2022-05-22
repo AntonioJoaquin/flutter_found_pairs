@@ -34,6 +34,4 @@ class ScoreManager extends ViewManager {
   // navigation
   void navigateToRanking() =>
       navigationService.pushNamed(AppRouter.rankingRoute);
-
-  void navigateToHome() => navigationService.popUntil(AppRouter.homeRoute);
 }

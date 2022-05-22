@@ -31,5 +31,15 @@ abstract class View {
           bodyColor: Palette.item,
           displayColor: Palette.item,
         ),
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+            borderSide: const BorderSide(color: Palette.red),
+          ),
+          focusColor: Palette.red,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
       );
 }

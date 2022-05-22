@@ -5,7 +5,6 @@ import '../../../core/common/custom_notifiers.dart';
 import '../../../di/locator.dart';
 import '../../../domain/model/score_model.dart';
 import '../../../domain/use_case/score_use_case.dart';
-import '../../utils/router.dart';
 import '../../view_manager.dart';
 
 @injectable
@@ -32,9 +31,6 @@ class RankingManager extends ViewManager {
 
     loaded(result.isSuccessful);
   }
-
-  // navigation
-  void navigateToHome() => navigationService.popUntil(AppRouter.homeRoute);
 
   @override
   void dispose() {

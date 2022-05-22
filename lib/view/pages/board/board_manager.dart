@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:found_pairs/view/pages/score/score_arguments.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../core/common/custom_notifiers.dart';
@@ -137,8 +138,8 @@ class BoardManager extends ViewManager {
   void _showWinDialog() async {
     dialogService.showPlayDialog(PlayDialogType.win, [
       () {},
-      () {},
-      () => _navigateToHome(),
+      _navigateToScore,
+      navigateToHome,
     ]);
 
     AssetsAudioPlayer.newPlayer().open(
@@ -149,8 +150,8 @@ class BoardManager extends ViewManager {
 
   void _showLoseDialog() async {
     dialogService.showPlayDialog(PlayDialogType.lose, [
-      () => _retry(),
-      () => _navigateToHome(),
+      _retry,
+      navigateToHome,
     ]);
 
     AssetsAudioPlayer.newPlayer().open(
@@ -163,19 +164,28 @@ class BoardManager extends ViewManager {
     _timer?.cancel();
 
     dialogService.showPlayDialog(PlayDialogType.pause, [
-      () => _navigateToHome(),
-      () => _resume(),
+      navigateToHome,
+      _resume,
     ]);
 
     return false;
   }
 
   // navigation
-  void _navigateToHome() {
+  @override
+  void navigateToHome() {
     _timer?.cancel();
 
-    navigationService.popUntil(AppRouter.homeRoute);
+    super.navigateToHome();
   }
+
+  void _navigateToScore() => navigationService.pushNamedWithArguments(
+        AppRouter.scoreRoute,
+        ScoreArguments(
+          _gameConfiguration.pairsNumber,
+          _remainedDuration.value!.inSeconds,
+        ),
+      );
 
   @override
   void dispose() {

@@ -1,5 +1,6 @@
 import '../core/core/core_manager.dart';
 import '../domain/common/error_type.dart';
+import 'utils/router.dart';
 
 abstract class ViewManager extends CoreManager {
   runRequest<T>({
@@ -16,4 +17,7 @@ abstract class ViewManager extends CoreManager {
 
     return result;
   }
+
+  // navigation
+  void navigateToHome() => navigationService.popUntil(AppRouter.homeRoute);
 }

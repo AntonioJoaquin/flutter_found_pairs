@@ -38,7 +38,7 @@ class _ScorePageState extends State<ScorePage> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScoreArguments;
+    final spacer = SizedBox(height: MediaQuery.of(context).size.height * .06);
 
     return WillPopScope(
       onWillPop: () async {
@@ -49,15 +49,14 @@ class _ScorePageState extends State<ScorePage> {
         body: SafeArea(
           child: Container(
             width: MediaQuery.of(context).size.width,
-            padding:
-                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
             child: ValueListenableBuilder<Status>(
               valueListenable: _manager.status,
               builder: (_, Status status, __) => Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _ScoreText(args.score.toString()),
-                  const SizedBox(height: 48.0),
+                  _ScoreText(widget.scoreArguments.score.toString()),
+                  spacer,
                   status == Status.loading
                       ? const Center(child: CircularProgressIndicator())
                       : _ScoreNameForm(
@@ -65,7 +64,7 @@ class _ScorePageState extends State<ScorePage> {
                           _manager,
                           widget.scoreArguments,
                         ),
-                  const SizedBox(height: 48.0),
+                  spacer,
                   Visibility(
                     visible: status != Status.loading,
                     child: InkWell(
@@ -103,8 +102,15 @@ class _ScoreText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text('You have finished the quiz with a score of: '),
-        const SizedBox(height: 24.0),
+        Text(
+          'You have finished the quiz with a score of: ',
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w300,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height * .03),
         Text(
           _score,
           style: TextStyle(
@@ -136,32 +142,28 @@ class _ScoreNameForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final spacer = SizedBox(height: MediaQuery.of(context).size.height * .03);
+
     return Form(
       key: _formKey,
       child: Column(
         children: [
-          const Text(
-            'You want to save yout score?',
+          Text(
+            'You want to save your score?',
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w300,
+            ),
           ),
-          const SizedBox(height: 24.0),
+          spacer,
           TextFormField(
             controller: _controller,
-            decoration: InputDecoration(
-              hintText: 'Enter your name...',
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0),
-                borderSide: const BorderSide(color: Palette.red),
-              ),
-              focusColor: Palette.red,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-            ),
+            decoration: const InputDecoration(hintText: 'Enter your name...'),
             validator: (value) => ((value?.length ?? 0) <= 3)
                 ? 'The name must have more than 3 characters'
                 : null,
           ),
-          const SizedBox(height: 24.0),
+          spacer,
           CustomButton(
             'Save Score',
             () => _saveScore(_scoreArguments),

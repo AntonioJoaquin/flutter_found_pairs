@@ -6,6 +6,8 @@ import '../pages/board/board_page.dart';
 import '../pages/difficulty_mode/difficulty_mode_page.dart';
 import '../pages/home/home_page.dart';
 import '../pages/ranking/ranking_page.dart';
+import '../pages/score/score_arguments.dart';
+import '../pages/score/score_page.dart';
 import 'game_utils/game_configuration.dart';
 
 abstract class AppRouter {
@@ -13,6 +15,7 @@ abstract class AppRouter {
   static const String rankingRoute = '/ranking';
   static const String difficultyModeRoute = '/difficulty_mode';
   static const String boardRoute = '/board';
+  static const String scoreRoute = '/score';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -29,6 +32,12 @@ abstract class AppRouter {
         return _fadeRoute(
           BoardPage(settings.arguments as GameConfiguration),
           boardRoute,
+        );
+
+      case scoreRoute:
+        return _fadeRoute(
+          ScorePage(settings.arguments as ScoreArguments),
+          scoreRoute,
         );
 
       default:

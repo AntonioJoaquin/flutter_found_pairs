@@ -17,4 +17,10 @@ class Score {
 
     return this;
   }
+
+  Score setTime(int time) {
+    timeInSeconds = time;
+
+    return this;
+  }
 }
