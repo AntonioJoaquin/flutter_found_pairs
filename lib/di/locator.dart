@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
+import '../data/datasource/local/database/app_database.dart';
 import 'locator.config.dart';
 
 final locator = GetIt.instance;
@@ -19,4 +20,8 @@ GlobalKey<NavigatorState> navigatorKeyBuilder(
   return navigatorKey;
 }
 
-void _init(GetIt locator) {}
+void _init(GetIt locator) {
+  _openStore();
+}
+
+void _openStore() => AppDatabase.appDatabase.open();
