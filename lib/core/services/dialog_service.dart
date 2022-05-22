@@ -207,7 +207,7 @@ class DialogService {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: _CustomButton(
-              'Save in ranking',
+              'Save score',
               () => onTaps[1].call(),
             ),
           ),
