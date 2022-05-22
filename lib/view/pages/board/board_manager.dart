@@ -58,7 +58,7 @@ class BoardManager extends ViewManager {
     );
     Future.delayed(
       const Duration(seconds: 1),
-      () => {}, // _initTimer(),
+      () => _initTimer(),
     );
   }
 

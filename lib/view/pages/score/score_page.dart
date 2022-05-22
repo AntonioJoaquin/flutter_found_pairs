@@ -20,6 +20,8 @@ class ScorePage extends StatefulWidget {
 class _ScorePageState extends State<ScorePage> {
   final ScoreManager _manager = locator<ScoreManager>();
 
+  final TextEditingController _controller = TextEditingController();
+
   late GlobalKey<FormState> _formKey;
 
   @override
@@ -32,6 +34,7 @@ class _ScorePageState extends State<ScorePage> {
   @override
   void dispose() {
     _manager.dispose();
+    _controller.dispose();
 
     super.dispose();
   }
@@ -46,6 +49,7 @@ class _ScorePageState extends State<ScorePage> {
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -63,6 +67,7 @@ class _ScorePageState extends State<ScorePage> {
                           _formKey,
                           _manager,
                           widget.scoreArguments,
+                          _controller,
                         ),
                   spacer,
                   Visibility(
@@ -122,21 +127,22 @@ class _ScoreText extends StatelessWidget {
 }
 
 class _ScoreNameForm extends StatelessWidget {
-  _ScoreNameForm(
+  const _ScoreNameForm(
     GlobalKey<FormState> formKey,
     ScoreManager manager,
-    ScoreArguments arguments, {
+    ScoreArguments arguments,
+    TextEditingController controller, {
     Key? key,
   })  : _formKey = formKey,
         _manager = manager,
         _scoreArguments = arguments,
+        _controller = controller,
         super(key: key);
 
   final GlobalKey<FormState> _formKey;
   final ScoreManager _manager;
   final ScoreArguments _scoreArguments;
-
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller;
 
   @override
   Widget build(BuildContext context) {

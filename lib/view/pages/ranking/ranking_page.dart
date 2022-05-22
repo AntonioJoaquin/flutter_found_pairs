@@ -52,14 +52,16 @@ class _RankingPageState extends State<RankingPage> {
           ),
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _Content(manager: _manager),
-                  CustomButton(
-                    'Close',
-                    _manager.navigateToHome,
+                  Expanded(child: _Content(manager: _manager)),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16.0, .0, 16.0, 16.0),
+                    child: CustomButton(
+                      'Close',
+                      _manager.navigateToHome,
+                    ),
                   ),
                 ],
               ),
@@ -89,7 +91,22 @@ class _Content extends StatelessWidget {
         valueListenable: _manager.ranking,
         builder: (_, List<ScoreModel> ranking, __) => (status == Status.loading)
             ? const Center(child: CircularProgressIndicator())
-            : _RankingList(ranking),
+            : ranking.isNotEmpty
+                ? _RankingList(ranking)
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.sports_esports_outlined,
+                        size: MediaQuery.of(context).size.width * .5,
+                        color: Palette.item,
+                      ),
+                      const Text(
+                        'Play and save your score to get a place in the ranking!',
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
       ),
     );
   }
@@ -107,6 +124,7 @@ class _RankingList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       shrinkWrap: true,
       itemCount: _ranking.length,
