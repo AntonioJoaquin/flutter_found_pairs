@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:found_pairs/core/common/palette.dart';
 
 import '../../../core/common/status.dart';
 import '../../../di/locator.dart';
@@ -37,17 +39,30 @@ class _RankingPageState extends State<RankingPage> {
         _manager.navigateToHome();
         return false;
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _Content(manager: _manager),
-              CustomButton(
-                'Close',
-                _manager.navigateToHome,
+      child: WillPopScope(
+        onWillPop: () async {
+          _manager.navigateToHome();
+          return true;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: const Text('Ranking'),
+          ),
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _Content(manager: _manager),
+                  CustomButton(
+                    'Close',
+                    _manager.navigateToHome,
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -91,10 +106,10 @@ class _RankingList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       shrinkWrap: true,
       itemCount: _ranking.length,
-      separatorBuilder: (_, __) => const Divider(color: Colors.amber),
+      separatorBuilder: (_, __) => const Divider(color: Palette.red),
       itemBuilder: (_, index) => _RankingItem(_ranking[index]),
     );
   }
@@ -112,15 +127,15 @@ class _RankingItem extends StatelessWidget {
     return ListTile(
       title: Text(
         _score.name,
-        style: const TextStyle(
-          fontSize: 18.0,
+        style: TextStyle(
+          fontSize: 18.sp,
           fontWeight: FontWeight.bold,
         ),
       ),
       trailing: Text(
         _score.score.toString(),
-        style: const TextStyle(
-          fontSize: 18.0,
+        style: TextStyle(
+          fontSize: 18.sp,
         ),
       ),
     );
