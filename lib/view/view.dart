@@ -9,7 +9,7 @@ abstract class View {
   static Route<dynamic> getRoutes(RouteSettings settings) =>
       AppRouter.generateRoute(settings);
 
-  static String getInitialRoute() => AppRouter.homeRoute;
+  static String getInitialRoute() => AppRouter.splashRoute;
 
   /// Theming
   static ThemeData get theme => ThemeData(
