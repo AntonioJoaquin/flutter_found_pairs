@@ -69,10 +69,9 @@ class _ScorePageState extends State<ScorePage> {
                     visible: status != Status.loading,
                     child: InkWell(
                       onTap: () => _manager.navigateToRanking(),
-                      child: Text(
+                      child: const Text(
                         'Continue without save',
                         style: TextStyle(
-                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                           color: Palette.red,
                         ),
@@ -102,10 +101,9 @@ class _ScoreText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
+        const Text(
           'You have finished the quiz with a score of: ',
           style: TextStyle(
-            fontSize: 16.sp,
             fontWeight: FontWeight.w300,
           ),
           textAlign: TextAlign.center,
@@ -148,12 +146,9 @@ class _ScoreNameForm extends StatelessWidget {
       key: _formKey,
       child: Column(
         children: [
-          Text(
+          const Text(
             'You want to save your score?',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w300,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w300),
           ),
           spacer,
           TextFormField(

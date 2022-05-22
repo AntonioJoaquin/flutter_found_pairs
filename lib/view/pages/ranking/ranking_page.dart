@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:found_pairs/core/common/palette.dart';
 
+import '../../../core/common/palette.dart';
 import '../../../core/common/status.dart';
 import '../../../di/locator.dart';
 import '../../../domain/model/score_model.dart';
 import '../../common/widgets/custom_button.dart';
+import '../../utils/time_utils.dart';
 import 'ranking_manager.dart';
 
 class RankingPage extends StatefulWidget {
@@ -110,33 +111,51 @@ class _RankingList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: _ranking.length,
       separatorBuilder: (_, __) => const Divider(color: Palette.red),
-      itemBuilder: (_, index) => _RankingItem(_ranking[index]),
+      itemBuilder: (_, index) => _RankingItem(index + 1, _ranking[index]),
     );
   }
 }
 
 class _RankingItem extends StatelessWidget {
-  const _RankingItem(ScoreModel score, {Key? key})
-      : _score = score,
+  const _RankingItem(int index, ScoreModel score, {Key? key})
+      : _index = index,
+        _score = score,
         super(key: key);
 
+  final int _index;
   final ScoreModel _score;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
-        _score.name,
-        style: TextStyle(
-          fontSize: 18.sp,
-          fontWeight: FontWeight.bold,
+      leading: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${_index.toString()}. ',
+            style: TextStyle(
+              fontSize: 16.sp,
+              color: Palette.item,
+            ),
+          ),
+          Image.asset(_score.difficultyIcon),
+        ],
+      ),
+      title: Flexible(
+        child: Text(
+          _score.name,
+          style: TextStyle(
+            fontSize: 16.sp,
+            color: Palette.item,
+            fontWeight: FontWeight.w300,
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
       trailing: Text(
-        _score.difficultyId.toString(),
-        style: TextStyle(
-          fontSize: 18.sp,
-        ),
+        TimeUtils.formatDuration(Duration(seconds: _score.timeInSeconds)),
+        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
       ),
     );
   }

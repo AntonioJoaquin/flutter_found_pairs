@@ -196,7 +196,6 @@ class DialogService {
           SizedBox(height: size.height * .025),
           const Text(
             'Congratulations, you managed to catch them all!',
-            style: TextStyle(fontSize: 16.0),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: size.height * .05),
@@ -231,7 +230,6 @@ class DialogService {
           SizedBox(height: size.height * .025),
           const Text(
             'Too bad! Time has run out and you haven\'t had time to catch them all.',
-            style: TextStyle(fontSize: 16.0),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: size.height * .05),

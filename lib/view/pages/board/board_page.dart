@@ -5,6 +5,7 @@ import '../../../di/locator.dart';
 import '../../../core/common/palette.dart';
 import '../../utils/game_utils/board_utils.dart';
 import '../../utils/game_utils/game_configuration.dart';
+import '../../utils/time_utils.dart';
 import 'board_arguments.dart';
 import 'board_manager.dart';
 import 'models/card_model.dart';
@@ -138,7 +139,9 @@ class _Timer extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: _manager.remainedDuration,
       builder: (_, Duration? remainedDuration, __) => Text(
-        remainedDuration != null ? _formatDuration(remainedDuration) : '00:00',
+        remainedDuration != null
+            ? TimeUtils.formatDuration(remainedDuration)
+            : '00:00',
         style: TextStyle(
           fontSize: 24.0.sp,
           fontWeight: FontWeight.w200,
@@ -147,9 +150,6 @@ class _Timer extends StatelessWidget {
       ),
     );
   }
-
-  String _formatDuration(Duration remainedDuration) =>
-      '${remainedDuration.inMinutes.remainder(60).toString().padLeft(2, '0')} : ${remainedDuration.inSeconds.remainder(60).toString().padLeft(2, '0')}';
 }
 
 class _Board extends StatelessWidget {

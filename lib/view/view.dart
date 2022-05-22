@@ -24,9 +24,9 @@ abstract class View {
           elevation: .0,
           iconTheme: const IconThemeData(color: Palette.red),
         ),
-        textTheme: const TextTheme(
-          bodyText1: TextStyle(),
-          bodyText2: TextStyle(),
+        textTheme: TextTheme(
+          bodyText1: TextStyle(fontSize: 16.sp),
+          bodyText2: TextStyle(fontSize: 16.sp),
         ).apply(
           bodyColor: Palette.item,
           displayColor: Palette.item,

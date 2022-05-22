@@ -51,10 +51,7 @@ class _DifficultyModePageState extends State<DifficultyModePage> {
                 valueListenable: _manager.difficultySelected,
                 builder: (_, DifficultyModeType type, __) => Text(
                   type.description,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w300,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.w300),
                 ),
               ),
               const Spacer(),
