@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
-        builder: (_) => MaterialApp(
+        builder: (_, __) => MaterialApp(
           title: 'Material App',
           navigatorKey: _navigatorKey,
           theme: View.theme,
