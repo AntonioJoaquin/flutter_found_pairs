@@ -43,6 +43,8 @@ dependencies:
   objectbox: ^1.4.1
   objectbox_flutter_libs: any
 
+  shared_preferences: ^2.0.15
+
   assets_audio_player: ^3.0.4+3
   flutter_screenutil: ^5.5.2
 

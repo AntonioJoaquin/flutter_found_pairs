@@ -12,9 +12,13 @@ import 'package:injectable/injectable.dart' as _i2;
 import '../core/services/dialog_service.dart' as _i4;
 import '../core/services/navigation_service.dart' as _i8;
 import '../data/repository/score_repository_impl.dart' as _i13;
+import '../data/repository/settings_repository_impl.dart' as _i16;
 import '../domain/repository/score_repository.dart' as _i12;
-import '../domain/use_case/impl/score_use_case_impl.dart' as _i16;
-import '../domain/use_case/score_use_case.dart' as _i15;
+import '../domain/repository/settings_repository.dart' as _i15;
+import '../domain/use_case/impl/score_use_case_impl.dart' as _i20;
+import '../domain/use_case/impl/settings_repository_use_case_impl.dart' as _i18;
+import '../domain/use_case/score_use_case.dart' as _i19;
+import '../domain/use_case/settings_use_case.dart' as _i17;
 import '../view/pages/board/board_manager.dart' as _i3;
 import '../view/pages/difficulty_mode/difficulty_mode_manager.dart' as _i6;
 import '../view/pages/home/home_manager.dart' as _i7;
@@ -39,9 +43,14 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i11.ScoreManager>(() => _i11.ScoreManager());
   gh.factory<_i12.ScoreRepository>(() => _i13.ScoreRepositoryImpl());
   gh.factory<_i14.SettingsManager>(() => _i14.SettingsManager());
-  gh.factory<_i15.GetScoresUseCase>(
-      () => _i16.GetScoreUseCaseImpl(get<_i12.ScoreRepository>()));
-  gh.factory<_i15.SaveScoreUseCase>(
-      () => _i16.SaveScoreUseCaseImpl(get<_i12.ScoreRepository>()));
+  gh.factory<_i15.SettingsRepository>(() => _i16.SettingsRepositoryImpl());
+  gh.factory<_i17.GetGameFinishedSoundsUseCase>(() =>
+      _i18.GetGameFinishedSoundsUseCaseImpl(get<_i15.SettingsRepository>()));
+  gh.factory<_i19.GetScoresUseCase>(
+      () => _i20.GetScoreUseCaseImpl(get<_i12.ScoreRepository>()));
+  gh.factory<_i19.SaveScoreUseCase>(
+      () => _i20.SaveScoreUseCaseImpl(get<_i12.ScoreRepository>()));
+  gh.factory<_i17.SetGameFinishedSoundsUseCase>(() =>
+      _i18.SetGameFinishedSoundsUseCaseImpl(get<_i15.SettingsRepository>()));
   return get;
 }
