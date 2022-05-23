@@ -10,11 +10,13 @@ import '../pages/ranking/ranking_page.dart';
 import '../pages/score/score_arguments.dart';
 import '../pages/score/score_page.dart';
 import '../pages/splash/splash_page.dart';
+import '../pages/settings/settings_page.dart';
 
 abstract class AppRouter {
   static const String splashRoute = '/';
   static const String homeRoute = '/home';
   static const String rankingRoute = '/ranking';
+  static const String settingsRoute = '/settings';
   static const String difficultyModeRoute = '/difficulty_mode';
   static const String boardRoute = '/board';
   static const String scoreRoute = '/score';
@@ -29,6 +31,9 @@ abstract class AppRouter {
 
       case rankingRoute:
         return _fadeRoute(const RankingPage(), rankingRoute);
+
+      case settingsRoute:
+        return _fadeRoute(const SettingsPage(), settingsRoute);
 
       case difficultyModeRoute:
         return _fadeRoute(const DifficultyModePage(), difficultyModeRoute);

@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final spacer = SizedBox(height: MediaQuery.of(context).size.height * .05);
+    final spacer = SizedBox(height: MediaQuery.of(context).size.height * .03);
 
     return Scaffold(
       appBar: AppBar(
@@ -42,6 +42,11 @@ class _HomePageState extends State<HomePage> {
             CustomButton(
               'Ranking',
               _manager.navigateToRanking,
+            ),
+            spacer,
+            CustomButton(
+              'Settings',
+              _manager.navigateToSettings,
             ),
           ],
         ),

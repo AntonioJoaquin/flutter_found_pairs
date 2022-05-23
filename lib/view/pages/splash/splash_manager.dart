@@ -6,6 +6,7 @@ import '../../view_manager.dart';
 @injectable
 class SplashManager extends ViewManager {
   // navigation
+  @override
   void navigateToHome() =>
       navigationService.pushNamedAndRemoveUntil(AppRouter.homeRoute);
 }

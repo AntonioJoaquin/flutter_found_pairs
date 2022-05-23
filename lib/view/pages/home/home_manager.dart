@@ -11,4 +11,7 @@ class HomeManager extends ViewManager {
 
   void navigateToRanking() =>
       navigationService.pushNamed(AppRouter.rankingRoute);
+
+  void navigateToSettings() =>
+      navigationService.pushNamed(AppRouter.settingsRoute);
 }
