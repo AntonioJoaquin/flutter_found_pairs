@@ -83,7 +83,7 @@ flutter:
   assets:
     - assets/images/pokemon/
     - assets/images/pokeball/
-    - assets/app_icon/
+    - assets/splash/
     - assets/sounds/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

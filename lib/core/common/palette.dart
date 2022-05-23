@@ -8,6 +8,8 @@ abstract class Palette {
   static const Color yellow = Colors.yellow;
   static const Color white = Colors.white;
 
+  static const Color splash = Color(0xFFE94940);
+
   static const Color item = Color(0xFF404468);
   static const Color cardFrontBackground = Color(0xFFEEEEEE);
 }
