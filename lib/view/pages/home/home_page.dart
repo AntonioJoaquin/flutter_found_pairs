@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:found_pairs/view/common/services/audio_service.dart';
 
 import '../../../di/locator.dart';
 import '../../common/widgets/custom_button.dart';
@@ -13,10 +14,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeManager _manager = locator<HomeManager>();
+  final AudioService _audioService = locator<AudioService>();
 
   @override
   void dispose() {
     _manager.dispose();
+    _audioService.dispose();
 
     super.dispose();
   }

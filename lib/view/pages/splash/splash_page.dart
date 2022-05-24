@@ -16,6 +16,13 @@ class _SplashPageState extends State<SplashPage> {
   final _manager = locator<SplashManager>();
 
   @override
+  void initState() {
+    _manager.initAudioService();
+
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _manager.dispose();
 
