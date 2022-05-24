@@ -55,7 +55,7 @@ class AudioService {
             (i) => AudioPlayer(
                 playerId: 'sfxPlayer#$i',
                 mode: PlayerMode.LOW_LATENCY)).toList(growable: false),
-        _playlist = Queue.of([Audio.homeMusic]) {
+        _playlist = Queue.of([Audio.home1]) {
     _musicCache = AudioCache(
       fixedPlayer: _musicPlayer,
       prefix: 'assets/sounds/music/',
@@ -94,7 +94,7 @@ class AudioService {
     // This assumes there is only a limited number of sound effects in the game.
     // If there are hundreds of long sound effect files, it's better
     // to be more selective when preloading.
-    await _sfxCache.loadAll([Audio.loseSound, Audio.winSound]);
+    await _sfxCache.loadAll([Audio.win1, Audio.win2, Audio.lose1]);
   }
 
   /// Plays a single sound effect, defined by [type].

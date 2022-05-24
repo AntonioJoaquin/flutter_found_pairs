@@ -1,7 +1,10 @@
 abstract class Audio {
-  static const String homeMusic = 'home.mp3';
-  static const String gameMusic = 'game.mp3';
+  static const String home1 = 'home1.mp3';
+  static const String gameEasy = 'game_easy.mp3';
+  static const String gameMedium = 'game_medium.mp3';
+  static const String gameHard = 'game_hard.mp3';
 
-  static const String winSound = 'win.wav';
-  static const String loseSound = 'lose.wav';
+  static const String win1 = 'win1.mp3';
+  static const String win2 = 'win2.mp3';
+  static const String lose1 = 'lose1.mp3';
 }
