@@ -17,13 +17,6 @@ class _SettingsPageState extends State<SettingsPage> {
   final SettingsManager _manager = locator<SettingsManager>();
 
   @override
-  void initState() {
-    _manager.init();
-
-    super.initState();
-  }
-
-  @override
   void dispose() {
     _manager.dispose();
 
@@ -32,6 +25,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final spacer = SizedBox(height: MediaQuery.of(context).size.height * .03);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -40,11 +35,23 @@ class _SettingsPageState extends State<SettingsPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: _SettingCheckItem(
-            'Finished game sounds',
-            _manager.isGameFinishedSoundsActivated,
-            onChanged: _manager.setGameFinishedSounds,
-            settingDescription: 'The sound played with the win or lose dialog.',
+          child: Column(
+            children: [
+              _SettingCheckItem(
+                'Sfx sound state',
+                _manager.settingsService.isSfxEnabled,
+                onChanged: _manager.setSfxEnabled,
+                settingDescription:
+                    'Enable or disable the secondary sounds effects for the game',
+              ),
+              spacer,
+              _SettingCheckItem(
+                'Music sound state',
+                _manager.settingsService.isMusicEnabled,
+                onChanged: _manager.setMusicEnabled,
+                settingDescription: 'Enable or disable the music',
+              ),
+            ],
           ),
         ),
       ),

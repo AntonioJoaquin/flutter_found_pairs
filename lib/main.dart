@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:found_pairs/view/common/app_lifecycle_observer.dart';
 
@@ -7,6 +8,7 @@ import 'view/view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   setUpLocator();
   final _navigatorKey = navigatorKeyBuilder(GlobalKey<NavigatorState>());

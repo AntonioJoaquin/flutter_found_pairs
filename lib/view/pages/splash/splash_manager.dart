@@ -5,18 +5,23 @@ import 'package:injectable/injectable.dart';
 
 import '../../../core/common/custom_notifiers.dart';
 import '../../../di/locator.dart';
+import '../../common/services/settings_service.dart';
 import '../../view_manager.dart';
 
 @injectable
 class SplashManager extends ViewManager {
   // actions
-  void initAudioService() {
+  void initAudioService() async {
     final AudioService audioService = AudioService();
     audioService.attachLifecycleNotifier(
       locator<CustomValueNotifier<AppLifecycleState>>(),
     );
     audioService.initialize();
-    audioService.startMusic();
+
+    final SettingsService settingsService = locator<SettingsService>();
+    await settingsService.init().then(
+          (_) => audioService.attachSettings(settingsService),
+        );
 
     locator.registerLazySingleton(() => audioService);
   }

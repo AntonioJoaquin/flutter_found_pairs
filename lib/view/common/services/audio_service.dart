@@ -1,7 +1,3 @@
-// Copyright 2022, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'dart:collection';
 import 'dart:math';
 
@@ -11,8 +7,8 @@ import 'package:logging/logging.dart';
 
 import '../../../core/common/custom_notifiers.dart';
 import '../style/audio.dart';
+import 'settings_service.dart';
 
-/// Allows playing music and sound. A facade to `package:audioplayers`.
 class AudioService {
   static final _log = Logger('AudioController');
 
@@ -35,6 +31,8 @@ class AudioService {
   final Queue<String> _playlist;
 
   final Random _random = Random();
+
+  SettingsService? _settingsService;
 
   CustomValueNotifier<AppLifecycleState>? _lifecycleNotifier;
 
@@ -68,7 +66,7 @@ class AudioService {
     _musicPlayer.onPlayerCompletion.listen(_changeSong);
   }
 
-  /// Enables the [AudioController] to listen to [AppLifecycleState] events,
+  /// Enables the [AudioService] to listen to [AppLifecycleState] events,
   /// and therefore do things like stopping playback when the game
   /// goes into the background.
   void attachLifecycleNotifier(
@@ -77,6 +75,31 @@ class AudioService {
 
     lifecycleNotifier.addListener(_handleAppLifecycle);
     _lifecycleNotifier = lifecycleNotifier;
+  }
+
+  /// Enables the [AudioService] to track changes to settings.
+  /// Namely, when any of [SettingsService.isMusicEnabled] changes,
+  /// the audio service will act accordingly.
+  void attachSettings(SettingsService settingsService) {
+    if (_settingsService == settingsService) {
+      // Already attached to this instance. Nothing to do.
+      return;
+    }
+
+    // Remove handlers from the old settings service if present
+    final oldSettings = _settingsService;
+    if (oldSettings != null) {
+      oldSettings.isMusicEnabled.removeListener(_musicOnHandler);
+    }
+
+    _settingsService = settingsService;
+
+    // Add handlers to the new settings service
+    settingsService.isMusicEnabled.addListener(_musicOnHandler);
+
+    if (settingsService.isMusicEnabled.value) {
+      _startMusic();
+    }
   }
 
   void dispose() {
@@ -97,13 +120,21 @@ class AudioService {
     await _sfxCache.loadAll([Audio.win1, Audio.win2, Audio.lose1]);
   }
 
-  /// Plays a single sound effect, defined by [type].
+  /// Plays a single sound effect, called [sfx].
   ///
-  /// The controller will ignore this call when the attached settings'
-  /// [SettingsController.muted] is `true` or if its
-  /// [SettingsController.soundsOn] is `false`.
-  /// TODO: Add muted option management
+  /// The service will ignore this call when the attached settings'
+  /// [SettingsService.isSfxEnabled] is `false`.
   void playSfx(String sfx) {
+    final isSfxEnabled = _settingsService?.isSfxEnabled.value ?? true;
+
+    if (!isSfxEnabled) {
+      _log.info(
+        () => 'Ignoring playing sound ($sfx) because sounds are turned off.',
+      );
+
+      return;
+    }
+
     _log.info(() => 'Playing sound: $sfx');
     _sfxCache.play(sfx);
     _currentSfxPlayer = (_currentSfxPlayer + 1) % _sfxPlayers.length;
@@ -127,13 +158,24 @@ class AudioService {
 
         break;
       case AppLifecycleState.resumed:
-        // TODO: Manage muted or musicOn settings
-        _resumeMusic();
+        if (_settingsService!.isMusicEnabled.value) {
+          _resumeMusic();
+        }
 
         break;
       case AppLifecycleState.inactive:
         // No need to react to this state change.
         break;
+    }
+  }
+
+  void _musicOnHandler() {
+    if (_settingsService!.isMusicEnabled.value) {
+      // Music got turned on.
+      _startMusic();
+    } else {
+      // Music got turned off.
+      _stopMusic();
     }
   }
 
@@ -169,7 +211,7 @@ class AudioService {
     }
   }
 
-  void startMusic() {
+  void _startMusic() {
     _log.info('starting music');
     _musicCache.play(_playlist.first);
   }
@@ -183,7 +225,7 @@ class AudioService {
     }
   }
 
-  void stopMusic() {
+  void _stopMusic() {
     _log.info('Stopping music');
     if (_musicPlayer.state == PlayerState.PLAYING) {
       _musicPlayer.pause();
