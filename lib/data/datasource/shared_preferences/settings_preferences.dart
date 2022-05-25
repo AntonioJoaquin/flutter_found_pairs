@@ -10,31 +10,31 @@ abstract class SettingsPreferences {
   static Future<bool> get sfxEnabled async =>
       (await SharedPreferences.getInstance()).getBool(_sfxEnabledKey) ?? true;
 
-  static Future<int> get sfxVolume async =>
-      (await SharedPreferences.getInstance()).getInt(_sfxVolumeKey) ?? 50;
+  static Future<double> get sfxVolume async =>
+      (await SharedPreferences.getInstance()).getDouble(_sfxVolumeKey) ?? .5;
 
   static Future<bool> get musicEnabled async =>
       (await SharedPreferences.getInstance()).getBool(_musicEnabledKey) ?? true;
 
-  static Future<int> get musicVolume async =>
-      (await SharedPreferences.getInstance()).getInt(_musicVolumeKey) ?? 50;
+  static Future<double> get musicVolume async =>
+      (await SharedPreferences.getInstance()).getDouble(_musicVolumeKey) ?? .5;
 
   // setters
   static Future<void> setSfxEnabled(bool isActivated) async =>
       await (await SharedPreferences.getInstance())
           .setBool(_sfxEnabledKey, isActivated);
 
-  static Future<void> setSfxVolume(int volume) async =>
+  static Future<void> setSfxVolume(double volume) async =>
       await (await SharedPreferences.getInstance())
-          .setInt(_sfxVolumeKey, volume);
+          .setDouble(_sfxVolumeKey, volume);
 
   static Future<void> setMusicEnabled(bool isActivated) async =>
       await (await SharedPreferences.getInstance())
           .setBool(_musicEnabledKey, isActivated);
 
-  static Future<void> setMusicVolume(int volume) async =>
+  static Future<void> setMusicVolume(double volume) async =>
       await (await SharedPreferences.getInstance())
-          .setInt(_musicVolumeKey, volume);
+          .setDouble(_musicVolumeKey, volume);
 
   Future<void> removeSettings() async =>
       await (await SharedPreferences.getInstance()).clear();

@@ -31,7 +31,7 @@ class GetSfxVolumeUseCaseImpl implements GetSfxVolumeUseCase {
   GetSfxVolumeUseCaseImpl(this._repository);
 
   @override
-  Future<int> getSfxVolume() => _repository.getSfxVolume();
+  Future<double> getSfxVolume() => _repository.getSfxVolume();
 }
 
 @Injectable(as: SetSfxVolumeUseCase)
@@ -41,7 +41,7 @@ class SetSfxVolumeUseCaseImpl implements SetSfxVolumeUseCase {
   SetSfxVolumeUseCaseImpl(this._repository);
 
   @override
-  Future<bool> setSfxVolume(int volume) => _repository.setSfxVolume(volume);
+  Future<bool> setSfxVolume(double volume) => _repository.setSfxVolume(volume);
 }
 
 @Injectable(as: GetMusicEnabledUseCase)
@@ -72,7 +72,7 @@ class GetMusicVolumeUseCaseImpl implements GetMusicVolumeUseCase {
   GetMusicVolumeUseCaseImpl(this._repository);
 
   @override
-  Future<int> getMusicVolume() => _repository.getMusicVolume();
+  Future<double> getMusicVolume() => _repository.getMusicVolume();
 }
 
 @Injectable(as: SetMusicVolumeUseCase)
@@ -82,5 +82,6 @@ class SetMusicVolumeUseCaseImpl implements SetMusicVolumeUseCase {
   SetMusicVolumeUseCaseImpl(this._repository);
 
   @override
-  Future<bool> setMusicVolume(int volume) => _repository.setMusicVolume(volume);
+  Future<bool> setMusicVolume(double volume) =>
+      _repository.setMusicVolume(volume);
 }

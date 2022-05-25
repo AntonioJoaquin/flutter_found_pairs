@@ -78,7 +78,8 @@ class AudioService {
   }
 
   /// Enables the [AudioService] to track changes to settings.
-  /// Namely, when any of [SettingsService.isMusicEnabled] changes,
+  /// Namely, when any of [SettingsService.isMusicEnabled],
+  /// [SettingsService.sfxVolume] or [SettingsService.musicVolume] changes,
   /// the audio service will act accordingly.
   void attachSettings(SettingsService settingsService) {
     if (_settingsService == settingsService) {
@@ -90,12 +91,16 @@ class AudioService {
     final oldSettings = _settingsService;
     if (oldSettings != null) {
       oldSettings.isMusicEnabled.removeListener(_musicOnHandler);
+      oldSettings.musicVolume.removeListener(_musicVolumeHandler);
+      oldSettings.sfxVolume.removeListener(_sfxVolumeHandler);
     }
 
     _settingsService = settingsService;
 
     // Add handlers to the new settings service
     settingsService.isMusicEnabled.addListener(_musicOnHandler);
+    settingsService.musicVolume.addListener(_musicVolumeHandler);
+    settingsService.sfxVolume.addListener(_sfxVolumeHandler);
 
     if (settingsService.isMusicEnabled.value) {
       _startMusic();
@@ -176,6 +181,16 @@ class AudioService {
     } else {
       // Music got turned off.
       _stopMusic();
+    }
+  }
+
+  void _musicVolumeHandler() {
+    _musicPlayer.setVolume(_settingsService!.musicVolume.value);
+  }
+
+  void _sfxVolumeHandler() {
+    for (final player in _sfxPlayers) {
+      player.setVolume(_settingsService!.sfxVolume.value);
     }
   }
 

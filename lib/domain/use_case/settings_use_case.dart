@@ -7,11 +7,11 @@ abstract class SetSfxEnabledUseCase {
 }
 
 abstract class GetSfxVolumeUseCase {
-  Future<int> getSfxVolume();
+  Future<double> getSfxVolume();
 }
 
 abstract class SetSfxVolumeUseCase {
-  Future<bool> setSfxVolume(int volume);
+  Future<bool> setSfxVolume(double volume);
 }
 
 abstract class GetMusicEnabledUseCase {
@@ -23,9 +23,9 @@ abstract class SetMusicEnabledUseCase {
 }
 
 abstract class GetMusicVolumeUseCase {
-  Future<int> getMusicVolume();
+  Future<double> getMusicVolume();
 }
 
 abstract class SetMusicVolumeUseCase {
-  Future<bool> setMusicVolume(int volume);
+  Future<bool> setMusicVolume(double volume);
 }

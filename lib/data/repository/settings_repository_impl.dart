@@ -10,13 +10,14 @@ class SettingsRepositoryImpl implements SettingsRepository {
       await SettingsPreferences.musicEnabled;
 
   @override
-  Future<int> getMusicVolume() async => await SettingsPreferences.musicVolume;
+  Future<double> getMusicVolume() async =>
+      await SettingsPreferences.musicVolume;
 
   @override
   Future<bool> getSfxEnabled() async => await SettingsPreferences.sfxEnabled;
 
   @override
-  Future<int> getSfxVolume() async => await SettingsPreferences.sfxVolume;
+  Future<double> getSfxVolume() async => await SettingsPreferences.sfxVolume;
 
   @override
   Future<bool> setMusicEnabled(bool isActivated) async {
@@ -26,7 +27,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<bool> setMusicVolume(int volume) async {
+  Future<bool> setMusicVolume(double volume) async {
     await SettingsPreferences.setMusicVolume(volume);
 
     return true;
@@ -40,7 +41,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<bool> setSfxVolume(int volume) async {
+  Future<bool> setSfxVolume(double volume) async {
     await SettingsPreferences.setSfxVolume(volume);
 
     return true;
