@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:found_pairs/view/common/services/audio_service.dart';
-import 'package:found_pairs/view/common/style/audio.dart' as audio;
 import 'package:injectable/injectable.dart';
 
 import '../../../core/common/custom_notifiers.dart';
 import '../../../core/common/play_dialog_types.dart';
 import '../../../di/locator.dart';
+import '../../common/services/audio_service.dart';
+import '../../common/style/audio.dart';
 import '../../utils/router.dart';
 import '../../view_manager.dart';
 import '../score/score_arguments.dart';
@@ -116,6 +115,7 @@ class BoardManager extends ViewManager {
 
   void _gameWon() {
     _timer?.cancel();
+    _canSelect = false;
 
     Future.delayed(
       const Duration(milliseconds: 300),
@@ -146,30 +146,25 @@ class BoardManager extends ViewManager {
 
   // shows
   void _showWinDialog() async {
+    _audioService.playSfx(Audio.win);
     _audioService.stopMusic();
+
     dialogService.showPlayDialog(PlayDialogType.win, [
       () {},
       _navigateToScore,
       navigateToHome,
     ]);
-
-    AssetsAudioPlayer.newPlayer().open(
-      Audio('assets/sounds/win.wav'),
-      autoStart: true,
-    );
   }
 
   void _showLoseDialog() async {
+    _audioService.playSfx(Audio.lose);
     _audioService.stopMusic();
+    _canSelect = false;
+
     dialogService.showPlayDialog(PlayDialogType.lose, [
       _retry,
       navigateToHome,
     ]);
-
-    AssetsAudioPlayer.newPlayer().open(
-      Audio('assets/sounds/lose.wav'),
-      autoStart: true,
-    );
   }
 
   Future<bool> showPauseDialog() async {
@@ -189,7 +184,7 @@ class BoardManager extends ViewManager {
   @override
   void navigateToHome() {
     _timer?.cancel();
-    _audioService.playSong(audio.Audio.home1);
+    _audioService.playSong(Audio.home1);
 
     super.navigateToHome();
   }

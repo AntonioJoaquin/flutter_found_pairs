@@ -129,16 +129,22 @@ class AudioService {
   ///
   /// The service will ignore this call when the attached settings'
   /// [SettingsService.isSfxEnabled] is `false`.
-  void playSfx(String sfx) {
+  void playSfx(List<String> sfxList) {
     final isSfxEnabled = _settingsService?.isSfxEnabled.value ?? true;
 
     if (!isSfxEnabled) {
       _log.info(
-        () => 'Ignoring playing sound ($sfx) because sounds are turned off.',
+        () =>
+            'Ignoring playing sound ($sfxList) because sounds are turned off.',
       );
 
       return;
     }
+
+    String sfx = '';
+    (sfxList.length > 1)
+        ? sfx = sfxList[_random.nextInt(sfxList.length - 1)]
+        : sfx = sfxList.first;
 
     _log.info(() => 'Playing sound: $sfx');
     _sfxCache.play(sfx);

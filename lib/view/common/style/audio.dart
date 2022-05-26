@@ -7,4 +7,7 @@ abstract class Audio {
   static const String win1 = 'win1.mp3';
   static const String win2 = 'win2.mp3';
   static const String lose1 = 'lose1.mp3';
+
+  static const List<String> win = [win1, win2];
+  static const List<String> lose = [lose1];
 }
