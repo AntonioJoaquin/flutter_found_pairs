@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:found_pairs/view/common/services/audio_service.dart';
+import 'package:found_pairs/view/common/style/audio.dart' as audio;
 import 'package:injectable/injectable.dart';
 
 import '../../../core/common/custom_notifiers.dart';
 import '../../../core/common/play_dialog_types.dart';
+import '../../../di/locator.dart';
 import '../../utils/router.dart';
 import '../../view_manager.dart';
 import '../score/score_arguments.dart';
@@ -13,6 +16,8 @@ import 'models/card_model.dart';
 
 @injectable
 class BoardManager extends ViewManager {
+  final AudioService _audioService = locator<AudioService>();
+
   final CustomValueNotifier<bool> _isInitialCountDown =
       CustomValueNotifier<bool>(true);
   CustomValueNotifier<bool> get isInitialCountDown => _isInitialCountDown;
@@ -48,8 +53,12 @@ class BoardManager extends ViewManager {
   }
 
   // actions
-  void start(BoardArguments boardArguments) {
+  void startMusic(BoardArguments boardArguments) {
     _boardArguments = boardArguments;
+    _audioService.playSong(boardArguments.gameConfiguration.music);
+  }
+
+  void startGame() {
     _isInitialCountDown.value = false;
     _canSelect = true;
 
@@ -126,6 +135,7 @@ class BoardManager extends ViewManager {
 
   void _resume() {
     navigationService.pop(); // Close dialog
+    _audioService.resumeMusic();
     _initTimer();
   }
 
@@ -136,6 +146,7 @@ class BoardManager extends ViewManager {
 
   // shows
   void _showWinDialog() async {
+    _audioService.stopMusic();
     dialogService.showPlayDialog(PlayDialogType.win, [
       () {},
       _navigateToScore,
@@ -149,6 +160,7 @@ class BoardManager extends ViewManager {
   }
 
   void _showLoseDialog() async {
+    _audioService.stopMusic();
     dialogService.showPlayDialog(PlayDialogType.lose, [
       _retry,
       navigateToHome,
@@ -161,6 +173,7 @@ class BoardManager extends ViewManager {
   }
 
   Future<bool> showPauseDialog() async {
+    _audioService.stopMusic();
     _timer?.cancel();
 
     dialogService.showPlayDialog(PlayDialogType.pause, [
@@ -176,6 +189,7 @@ class BoardManager extends ViewManager {
   @override
   void navigateToHome() {
     _timer?.cancel();
+    _audioService.playSong(audio.Audio.home1);
 
     super.navigateToHome();
   }

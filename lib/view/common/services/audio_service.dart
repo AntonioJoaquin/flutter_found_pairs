@@ -146,6 +146,13 @@ class AudioService {
     _sfxCache.fixedPlayer = _sfxPlayers[_currentSfxPlayer];
   }
 
+  void playSong(String song) {
+    if (_settingsService!.isMusicEnabled.value) {
+      _log.info(() => 'Playing $song now.');
+      _musicCache.play(song);
+    }
+  }
+
   void _changeSong(void _) {
     _log.info('Last song finished playing.');
     // Put the song that just finished playing to the end of the playlist.
@@ -180,7 +187,7 @@ class AudioService {
       _startMusic();
     } else {
       // Music got turned off.
-      _stopMusic();
+      stopMusic();
     }
   }
 
@@ -198,14 +205,7 @@ class AudioService {
     _log.info('Resuming music');
     switch (_musicPlayer.state) {
       case PlayerState.PAUSED:
-        _log.info('Calling _musicPlayer.resume()');
-        try {
-          await _musicPlayer.resume();
-        } catch (e) {
-          // Sometimes, resuming fails with an "Unexpected" error.
-          _log.severe(e);
-          await _musicCache.play(_playlist.first);
-        }
+        resumeMusic();
         break;
       case PlayerState.STOPPED:
         _log.info("resumeMusic() called when music is stopped. "
@@ -231,6 +231,17 @@ class AudioService {
     _musicCache.play(_playlist.first);
   }
 
+  void resumeMusic() async {
+    _log.info('Calling _musicPlayer.resume()');
+    try {
+      await _musicPlayer.resume();
+    } catch (e) {
+      // Sometimes, resuming fails with an "Unexpected" error.
+      _log.severe(e);
+      await _musicCache.play(_playlist.first);
+    }
+  }
+
   void _stopAllSound() {
     if (_musicPlayer.state == PlayerState.PLAYING) {
       _musicPlayer.pause();
@@ -240,7 +251,7 @@ class AudioService {
     }
   }
 
-  void _stopMusic() {
+  void stopMusic() {
     _log.info('Stopping music');
     if (_musicPlayer.state == PlayerState.PLAYING) {
       _musicPlayer.pause();

@@ -45,6 +45,7 @@ class _BoardPageState extends State<BoardPage>
     )..addStatusListener(_initialCountDownListener);
     _animation =
         Tween(begin: .0, end: 4.0).animate(_initialCountDownController);
+    _manager.startMusic(widget._boardArguments);
     _initialCountDownController.forward();
 
     super.initState();
@@ -65,7 +66,7 @@ class _BoardPageState extends State<BoardPage>
 
   void _initialCountDownListener(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
-      _manager.start(widget._boardArguments);
+      _manager.startGame();
     }
   }
 
