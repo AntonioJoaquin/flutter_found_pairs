@@ -163,13 +163,14 @@ class _SettingSliderItem extends StatelessWidget {
             min: 0,
             max: 100,
             divisions: 100,
-            value: value,
+            value: value * 100,
             activeColor: Palette.red,
-            onChanged: (newValue) => _onChanged.call(newValue.roundToDouble()),
+            onChanged: (newValue) =>
+                _onChanged.call(newValue.roundToDouble() / 100),
           ),
           spacer,
           Text(
-            value.toString(),
+            (value * 100).toInt().toString(),
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.bold,
