@@ -140,6 +140,7 @@ class BoardManager extends ViewManager {
   }
 
   void _retry() {
+    _timer?.cancel();
     navigationService.pop(); // Close dialog
     navigationService.pushReplacement(AppRouter.boardRoute, _boardArguments);
   }
