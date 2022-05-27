@@ -40,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _SettingCheckItem(
+                _SettingSwitchItem(
                   'Sfx sound state',
                   _manager.settingsService.isSfxEnabled,
                   onChanged: _manager.setSfxEnabled,
@@ -54,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   onChanged: _manager.setSfxVolume,
                 ),
                 spacer,
-                _SettingCheckItem(
+                _SettingSwitchItem(
                   'Music sound state',
                   _manager.settingsService.isMusicEnabled,
                   onChanged: _manager.setMusicEnabled,
@@ -66,6 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   _manager.settingsService.musicVolume,
                   onChanged: _manager.setMusicVolume,
                 ),
+                spacer,
               ],
             ),
           ),
@@ -75,13 +76,13 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 }
 
-class _SettingCheckItem extends StatelessWidget {
-  const _SettingCheckItem(
+class _SettingSwitchItem extends StatelessWidget {
+  const _SettingSwitchItem(
     String setting,
     ValueListenable<bool> valueListenable, {
     Key? key,
     required Function onChanged,
-    required String settingDescription,
+    String? settingDescription,
   })  : _setting = setting,
         _valueListenable = valueListenable,
         _onChanged = onChanged,
@@ -91,7 +92,7 @@ class _SettingCheckItem extends StatelessWidget {
   final String _setting;
   final ValueListenable<bool> _valueListenable;
   final Function _onChanged;
-  final String _settingDescription;
+  final String? _settingDescription;
 
   @override
   Widget build(BuildContext context) {
@@ -108,20 +109,23 @@ class _SettingCheckItem extends StatelessWidget {
             ),
             ValueListenableBuilder<bool>(
               valueListenable: _valueListenable,
-              builder: (_, bool isActivated, __) => Checkbox(
+              builder: (_, bool isActivated, __) => Switch.adaptive(
                 value: isActivated,
-                onChanged: (newValue) => _onChanged.call(newValue ?? false),
+                onChanged: (newValue) => _onChanged.call(newValue),
                 activeColor: Palette.red,
               ),
             ),
           ],
         ),
         SizedBox(height: MediaQuery.of(context).size.height * .01),
-        Text(
-          _settingDescription,
-          style: TextStyle(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w300,
+        Visibility(
+          visible: _settingDescription != null,
+          child: Text(
+            _settingDescription ?? '',
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w300,
+            ),
           ),
         ),
       ],
