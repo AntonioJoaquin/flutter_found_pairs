@@ -199,20 +199,16 @@ class DialogService {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: size.height * .05),
-          _CustomButton(
-            'View stadistics',
-            () => onTaps[0].call(),
-          ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.only(bottom: 8.0),
             child: _CustomButton(
               'Save score',
-              () => onTaps[1].call(),
+              () => onTaps[0].call(),
             ),
           ),
           _CustomButton(
             'Go home',
-            () => onTaps[2].call(), // _manager.navigateToBoardGame,),
+            () => onTaps[1].call(), // _manager.navigateToBoardGame,),
           ),
         ],
       );

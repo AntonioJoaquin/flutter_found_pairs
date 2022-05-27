@@ -151,7 +151,6 @@ class BoardManager extends ViewManager {
     _audioService.stopMusic();
 
     dialogService.showPlayDialog(PlayDialogType.win, [
-      () {},
       _navigateToScore,
       navigateToHome,
     ]);
