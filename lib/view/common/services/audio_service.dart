@@ -156,6 +156,7 @@ class AudioService {
   void playSong(String song) {
     if (_settingsService!.isMusicEnabled.value) {
       _log.info(() => 'Playing $song now.');
+      _musicPlayer.stop();
       _musicCache.play(song);
     }
   }
