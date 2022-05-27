@@ -234,7 +234,10 @@ class AudioService {
 
   void _startMusic() {
     _log.info('starting music');
-    _musicCache.play(_playlist.first);
+    _musicCache.play(
+      _playlist.first,
+      volume: _settingsService!.musicVolume.value,
+    );
   }
 
   void resumeMusic() async {

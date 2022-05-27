@@ -74,14 +74,16 @@ class _BoardPageState extends State<BoardPage>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _manager.showPauseDialog(),
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: _Timer(_manager),
-        ),
-        body: ValueListenableBuilder(
-          valueListenable: _manager.isInitialCountDown,
-          builder: (_, bool isInitialCountDown, __) => isInitialCountDown
+      child: ValueListenableBuilder(
+        valueListenable: _manager.isInitialCountDown,
+        builder: (_, bool isInitialCountDown, __) => Scaffold(
+          appBar: isInitialCountDown
+              ? null
+              : AppBar(
+                  automaticallyImplyLeading: true,
+                  title: _Timer(_manager),
+                ),
+          body: isInitialCountDown
               ? _AnimatedCountDown(_animation)
               : _Board(
                   _manager,
@@ -172,20 +174,23 @@ class _Board extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return GridView.builder(
-      padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, .0),
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: _gameConfiguration.cardColumns,
-        mainAxisSpacing: 4.0,
-        crossAxisSpacing: 4.0,
-        childAspectRatio: size.aspectRatio * 1.8,
-      ),
-      itemCount: _deck.length,
-      itemBuilder: (_, index) => _DeckItem(
-        _manager,
-        _gameConfiguration,
-        _deck[index],
+    return Center(
+      child: GridView.builder(
+        padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, .0),
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: _gameConfiguration.cardColumns,
+          mainAxisSpacing: 4.0,
+          crossAxisSpacing: 4.0,
+          childAspectRatio: size.aspectRatio * 1.8,
+        ),
+        itemCount: _deck.length,
+        itemBuilder: (_, index) => _DeckItem(
+          _manager,
+          _gameConfiguration,
+          _deck[index],
+        ),
       ),
     );
   }
