@@ -25,7 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final spacer = SizedBox(height: MediaQuery.of(context).size.height * .01);
+    final spacer = SizedBox(height: MediaQuery.of(context).size.height * .03);
 
     return Scaffold(
       appBar: AppBar(
@@ -67,6 +67,16 @@ class _SettingsPageState extends State<SettingsPage> {
                   onChanged: _manager.setMusicVolume,
                 ),
                 spacer,
+                const Divider(),
+                spacer,
+                _SettingSwitchItem(
+                  'Dark Mode',
+                  _manager.themeManager.isDark,
+                  onChanged: _manager.setThemeMode,
+                ),
+                spacer,
+                const Divider(),
+                spacer,
               ],
             ),
           ),
@@ -99,7 +109,6 @@ class _SettingSwitchItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: MediaQuery.of(context).size.height * .05),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -120,6 +129,7 @@ class _SettingSwitchItem extends StatelessWidget {
         SizedBox(height: MediaQuery.of(context).size.height * .01),
         Visibility(
           visible: _settingDescription != null,
+          maintainSize: false,
           child: Text(
             _settingDescription ?? '',
             style: TextStyle(
@@ -157,7 +167,7 @@ class _SettingSliderItem extends StatelessWidget {
       builder: (_, double value, __) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * .05),
+          SizedBox(height: MediaQuery.of(context).size.height * .03),
           Text(
             _setting,
             style: const TextStyle(fontWeight: FontWeight.w300),

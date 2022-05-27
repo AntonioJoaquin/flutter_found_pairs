@@ -99,7 +99,6 @@ class _Content extends StatelessWidget {
                       Icon(
                         Icons.sports_esports_outlined,
                         size: MediaQuery.of(context).size.width * .5,
-                        color: Palette.item,
                       ),
                       const Text(
                         'Play and save your score to get a place in the ranking!',
@@ -151,10 +150,7 @@ class _RankingItem extends StatelessWidget {
         children: [
           Text(
             '${_index.toString()}. ',
-            style: TextStyle(
-              fontSize: 16.sp,
-              color: Palette.item,
-            ),
+            style: TextStyle(fontSize: 16.sp),
           ),
           Image.asset(_score.difficultyIcon),
         ],
@@ -164,7 +160,6 @@ class _RankingItem extends StatelessWidget {
           _score.name,
           style: TextStyle(
             fontSize: 16.sp,
-            color: Palette.item,
             fontWeight: FontWeight.w300,
           ),
           maxLines: 1,

@@ -114,6 +114,7 @@ class AudioService {
     for (final player in _sfxPlayers) {
       player.dispose();
     }
+    _settingsService?.dispose();
   }
 
   /// Preloads all sound effects.

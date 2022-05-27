@@ -1,3 +1,4 @@
+// Sound
 abstract class GetSfxEnabledUseCase {
   Future<bool> getSfxEnabled();
 }
@@ -28,4 +29,13 @@ abstract class GetMusicVolumeUseCase {
 
 abstract class SetMusicVolumeUseCase {
   Future<bool> setMusicVolume(double volume);
+}
+
+// Theme
+abstract class GetThemeModeUseCase {
+  Future<bool> getThemeMode();
+}
+
+abstract class SetThemeModeUseCase {
+  Future<bool> setThemeMode(bool isDark);
 }

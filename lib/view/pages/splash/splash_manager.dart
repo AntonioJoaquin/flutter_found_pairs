@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import '../../../core/common/custom_notifiers.dart';
 import '../../../di/locator.dart';
 import '../../common/services/settings_service.dart';
-import '../../view_manager.dart';
+import '../../common/manager/view_manager.dart';
 
 @injectable
 class SplashManager extends ViewManager {

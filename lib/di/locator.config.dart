@@ -58,6 +58,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i20.GetSfxEnabledUseCaseImpl(get<_i15.SettingsRepository>()));
   gh.factory<_i19.GetSfxVolumeUseCase>(
       () => _i20.GetSfxVolumeUseCaseImpl(get<_i15.SettingsRepository>()));
+  gh.factory<_i19.GetThemeModeUseCase>(
+      () => _i20.GetThemeModeUseCaseImpl(get<_i15.SettingsRepository>()));
   gh.factory<_i21.SaveScoreUseCase>(
       () => _i22.SaveScoreUseCaseImpl(get<_i12.ScoreRepository>()));
   gh.factory<_i19.SetMusicEnabledUseCase>(
@@ -68,5 +70,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i20.SetSfxEnabledUseCaseImpl(get<_i15.SettingsRepository>()));
   gh.factory<_i19.SetSfxVolumeUseCase>(
       () => _i20.SetSfxVolumeUseCaseImpl(get<_i15.SettingsRepository>()));
+  gh.factory<_i19.SetThemeModeUseCase>(
+      () => _i20.SetThemeModeUseCaseImpl(get<_i15.SettingsRepository>()));
   return get;
 }

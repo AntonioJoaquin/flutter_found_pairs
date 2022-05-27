@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../../repository/settings_repository.dart';
 import '../settings_use_case.dart';
 
+// Sound
 @Injectable(as: GetSfxEnabledUseCase)
 class GetSfxEnabledUseCaseImpl implements GetSfxEnabledUseCase {
   final SettingsRepository _repository;
@@ -84,4 +85,25 @@ class SetMusicVolumeUseCaseImpl implements SetMusicVolumeUseCase {
   @override
   Future<bool> setMusicVolume(double volume) =>
       _repository.setMusicVolume(volume);
+}
+
+// Theme
+@Injectable(as: GetThemeModeUseCase)
+class GetThemeModeUseCaseImpl implements GetThemeModeUseCase {
+  final SettingsRepository _repository;
+
+  GetThemeModeUseCaseImpl(this._repository);
+
+  @override
+  Future<bool> getThemeMode() => _repository.getThemeMode();
+}
+
+@Injectable(as: SetThemeModeUseCase)
+class SetThemeModeUseCaseImpl implements SetThemeModeUseCase {
+  final SettingsRepository _repository;
+
+  SetThemeModeUseCaseImpl(this._repository);
+
+  @override
+  Future<bool> setThemeMode(bool isDark) => _repository.setThemeMode(isDark);
 }

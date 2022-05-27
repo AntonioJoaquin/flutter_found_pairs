@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:found_pairs/view/common/manager/theme_manager.dart';
 
 import '../../../di/locator.dart';
 import '../../../core/common/palette.dart';
@@ -16,6 +17,7 @@ class DifficultyModePage extends StatefulWidget {
 
 class _DifficultyModePageState extends State<DifficultyModePage> {
   final DifficultyModeManager _manager = locator<DifficultyModeManager>();
+  final ThemeManager _themeManager = locator<ThemeManager>();
 
   @override
   void dispose() {
@@ -41,11 +43,23 @@ class _DifficultyModePageState extends State<DifficultyModePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Spacer(),
-              _DifficultyItem(DifficultyModeType.easy, _manager),
+              _DifficultyItem(
+                DifficultyModeType.easy,
+                _manager,
+                isDark: _themeManager.isDark.value,
+              ),
               spacer,
-              _DifficultyItem(DifficultyModeType.medium, _manager),
+              _DifficultyItem(
+                DifficultyModeType.medium,
+                _manager,
+                isDark: _themeManager.isDark.value,
+              ),
               spacer,
-              _DifficultyItem(DifficultyModeType.hard, _manager),
+              _DifficultyItem(
+                DifficultyModeType.hard,
+                _manager,
+                isDark: _themeManager.isDark.value,
+              ),
               const Spacer(),
               ValueListenableBuilder(
                 valueListenable: _manager.difficultySelected,
@@ -69,10 +83,12 @@ class _DifficultyItem extends StatelessWidget {
     this.type,
     this.manager, {
     Key? key,
+    required this.isDark,
   }) : super(key: key);
 
   final DifficultyModeType type;
   final DifficultyModeManager manager;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +101,13 @@ class _DifficultyItem extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(
               width: (typeSelected.id == type.id) ? 1.0 : 2.0,
-              color: (typeSelected.id == type.id) ? type.color : Palette.item,
+              color: (typeSelected.id == type.id)
+                  ? isDark
+                      ? type.darkColor ?? type.lightColor
+                      : type.lightColor
+                  : isDark
+                      ? Palette.darkItem
+                      : Palette.lightItem,
             ),
             borderRadius: BorderRadius.circular(12.0),
           ),
@@ -102,7 +124,11 @@ class _DifficultyItem extends StatelessWidget {
                   fontSize: 20.sp,
                   fontWeight:
                       (typeSelected.id == type.id) ? FontWeight.w300 : null,
-                  color: (typeSelected.id == type.id) ? type.color : null,
+                  color: (typeSelected.id == type.id)
+                      ? isDark
+                          ? type.darkColor ?? type.lightColor
+                          : type.lightColor
+                      : null,
                 ),
               ),
             ],

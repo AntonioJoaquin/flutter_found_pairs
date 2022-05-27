@@ -5,7 +5,7 @@ import '../../../core/common/custom_notifiers.dart';
 import '../../../di/locator.dart';
 import '../../../domain/model/score_model.dart';
 import '../../../domain/use_case/score_use_case.dart';
-import '../../view_manager.dart';
+import '../../common/manager/view_manager.dart';
 
 @injectable
 class RankingManager extends ViewManager {

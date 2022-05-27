@@ -2,8 +2,9 @@ import 'package:injectable/injectable.dart';
 
 import '../../../di/locator.dart';
 import '../../../domain/use_case/settings_use_case.dart';
+import '../../common/manager/theme_manager.dart';
 import '../../common/services/settings_service.dart';
-import '../../view_manager.dart';
+import '../../common/manager/view_manager.dart';
 
 @injectable
 class SettingsManager extends ViewManager {
@@ -15,11 +16,17 @@ class SettingsManager extends ViewManager {
       locator<SetMusicEnabledUseCase>();
   final SetMusicVolumeUseCase _setMusicVolumeUseCase =
       locator<SetMusicVolumeUseCase>();
+  final SetThemeModeUseCase _setThemeModeUseCase =
+      locator<SetThemeModeUseCase>();
 
   final SettingsService _settingsService = locator<SettingsService>();
   SettingsService get settingsService => _settingsService;
 
+  final ThemeManager _themeManager = locator<ThemeManager>();
+  ThemeManager get themeManager => _themeManager;
+
   // setters
+  // Sound
   void setSfxEnabled(bool newValue) async {
     _settingsService.setSfxEnabled(newValue);
     await _setSfxEnabledUseCase.setSfxEnabled(newValue);
@@ -38,5 +45,11 @@ class SettingsManager extends ViewManager {
   void setMusicVolume(double volume) async {
     _settingsService.setMusicVolume(volume);
     await _setMusicVolumeUseCase.setMusicVolume(volume);
+  }
+
+  // Theme
+  void setThemeMode(bool isDark) async {
+    _themeManager.setThemeMode(isDark);
+    await _setThemeModeUseCase.setThemeMode(isDark);
   }
 }

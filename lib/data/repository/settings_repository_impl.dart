@@ -5,6 +5,7 @@ import '../datasource/shared_preferences/settings_preferences.dart';
 
 @Injectable(as: SettingsRepository)
 class SettingsRepositoryImpl implements SettingsRepository {
+  // Sound
   @override
   Future<bool> getMusicEnabled() async =>
       await SettingsPreferences.musicEnabled;
@@ -43,6 +44,17 @@ class SettingsRepositoryImpl implements SettingsRepository {
   @override
   Future<bool> setSfxVolume(double volume) async {
     await SettingsPreferences.setSfxVolume(volume);
+
+    return true;
+  }
+
+  // Theme
+  @override
+  Future<bool> getThemeMode() async => await SettingsPreferences.themeMode;
+
+  @override
+  Future<bool> setThemeMode(bool isDark) async {
+    await SettingsPreferences.setThemeMode(isDark);
 
     return true;
   }

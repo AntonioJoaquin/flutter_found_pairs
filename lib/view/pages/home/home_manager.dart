@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../utils/router.dart';
-import '../../view_manager.dart';
+import '../../common/manager/view_manager.dart';
 
 @injectable
 class HomeManager extends ViewManager {

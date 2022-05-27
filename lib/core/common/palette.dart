@@ -10,6 +10,10 @@ abstract class Palette {
 
   static const Color splash = Color(0xFFE94940);
 
-  static const Color item = Color(0xFF404468);
+  static const Color lightBackground = Color(0xFFFFFFFF);
+  static const Color darkBackground = Color(0xFF404468);
+  static const Color lightItem = Color(0xFF404468);
+  static const Color darkItem = Color(0xFFFFFFFF);
+
   static const Color cardFrontBackground = Color(0xFFEEEEEE);
 }

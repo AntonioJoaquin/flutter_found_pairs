@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../../../core/common/custom_notifiers.dart';
 import '../../utils/game_utils/difficulty_mode_type.dart';
 import '../../utils/router.dart';
-import '../../view_manager.dart';
+import '../../common/manager/view_manager.dart';
 import '../board/board_arguments.dart';
 
 @injectable

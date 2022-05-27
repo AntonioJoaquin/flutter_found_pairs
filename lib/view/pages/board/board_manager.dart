@@ -8,7 +8,7 @@ import '../../../di/locator.dart';
 import '../../common/services/audio_service.dart';
 import '../../common/style/audio.dart';
 import '../../utils/router.dart';
-import '../../view_manager.dart';
+import '../../common/manager/view_manager.dart';
 import '../score/score_arguments.dart';
 import 'board_arguments.dart';
 import 'models/card_model.dart';

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'utils/router.dart';
-import '../core/common/palette.dart';
 
 abstract class View {
   /// Routing
@@ -10,36 +8,4 @@ abstract class View {
       AppRouter.generateRoute(settings);
 
   static String getInitialRoute() => AppRouter.splashRoute;
-
-  /// Theming
-  static ThemeData get theme => ThemeData(
-        appBarTheme: AppBarTheme(
-          titleTextStyle: TextStyle(
-            fontSize: 24.sp,
-            fontWeight: FontWeight.w300,
-            color: Palette.red,
-          ),
-          centerTitle: true,
-          color: Palette.transparent,
-          elevation: .0,
-          iconTheme: const IconThemeData(color: Palette.red),
-        ),
-        textTheme: TextTheme(
-          bodyText1: TextStyle(fontSize: 16.sp),
-          bodyText2: TextStyle(fontSize: 16.sp),
-        ).apply(
-          bodyColor: Palette.item,
-          displayColor: Palette.item,
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
-            borderSide: const BorderSide(color: Palette.red),
-          ),
-          focusColor: Palette.red,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-        ),
-      );
 }
