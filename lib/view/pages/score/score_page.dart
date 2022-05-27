@@ -5,6 +5,7 @@ import '../../../core/common/palette.dart';
 import '../../../core/common/status.dart';
 import '../../../di/locator.dart';
 import '../../common/widgets/custom_button.dart';
+import '../../utils/time_utils.dart';
 import 'score_arguments.dart';
 import 'score_manager.dart';
 
@@ -59,7 +60,7 @@ class _ScorePageState extends State<ScorePage> {
               builder: (_, Status status, __) => Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _ScoreText(widget.scoreArguments.score.toString()),
+                  _ScoreText(widget.scoreArguments.timeInSeconds),
                   spacer,
                   status == Status.loading
                       ? const Center(child: CircularProgressIndicator())
@@ -73,7 +74,7 @@ class _ScorePageState extends State<ScorePage> {
                   Visibility(
                     visible: status != Status.loading,
                     child: InkWell(
-                      onTap: () => _manager.navigateToRanking(),
+                      onTap: () => _manager.navigateToHome(),
                       child: const Text(
                         'Continue without save',
                         style: TextStyle(
@@ -95,19 +96,19 @@ class _ScorePageState extends State<ScorePage> {
 
 class _ScoreText extends StatelessWidget {
   const _ScoreText(
-    String score, {
+    int time, {
     Key? key,
-  })  : _score = score,
+  })  : _time = time,
         super(key: key);
 
-  final String _score;
+  final int _time;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const Text(
-          'You have finished the quiz with a score of: ',
+          'You have finished the quiz with\na time of: ',
           style: TextStyle(
             fontWeight: FontWeight.w300,
           ),
@@ -115,7 +116,7 @@ class _ScoreText extends StatelessWidget {
         ),
         SizedBox(height: MediaQuery.of(context).size.height * .03),
         Text(
-          _score,
+          TimeUtils.formatDuration(Duration(seconds: _time)),
           style: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.bold,
@@ -153,7 +154,7 @@ class _ScoreNameForm extends StatelessWidget {
       child: Column(
         children: [
           const Text(
-            'You want to save your score?',
+            'You want to save your time?',
             style: TextStyle(fontWeight: FontWeight.w300),
           ),
           spacer,
@@ -166,7 +167,7 @@ class _ScoreNameForm extends StatelessWidget {
           ),
           spacer,
           CustomButton(
-            'Save Score',
+            'Save time',
             () => _saveScore(_scoreArguments),
           ),
         ],
