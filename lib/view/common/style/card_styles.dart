@@ -48,11 +48,11 @@ abstract class CardStyles {
     end: Alignment.bottomCenter,
     stops: [.4, .4, .5, .5, .6, .6],
     colors: [
-      Palette.black,
-      Palette.yellow,
-      Palette.yellow,
-      Palette.black,
-      Palette.black,
+      Palette.purple,
+      Palette.red,
+      Palette.red,
+      Palette.purple,
+      Palette.purple,
       Palette.white,
     ],
   );

@@ -7,7 +7,7 @@ abstract class Palette {
   static const Color black = Colors.black;
   static const Color yellow = Colors.yellow;
   static const Color white = Colors.white;
-  static const Color purple = Colors.purple;
+  static const Color purple = Color(0xFF6A1B9A);
 
   static const Color splash = Color(0xFFE94940);
 
