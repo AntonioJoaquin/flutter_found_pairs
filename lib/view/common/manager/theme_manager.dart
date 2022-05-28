@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -43,6 +44,18 @@ class ThemeManager {
         dividerColor: isDark ? Palette.darkItem : Palette.lightItem,
         listTileTheme: ListTileThemeData(
           textColor: isDark ? Palette.darkItem : Palette.lightItem,
+        ),
+        cupertinoOverrideTheme: NoDefaultCupertinoThemeData(
+          textTheme: CupertinoTextThemeData(
+            textStyle: TextStyle(
+              fontSize: 16.sp,
+              color: isDark ? Palette.darkItem : Palette.lightItem,
+            ),
+            pickerTextStyle: TextStyle(
+              fontSize: 16.sp,
+              color: isDark ? Palette.darkItem : Palette.lightItem,
+            ),
+          ),
         ),
       );
 

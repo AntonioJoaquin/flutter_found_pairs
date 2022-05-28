@@ -36,10 +36,14 @@ class _SettingsPageState extends State<SettingsPage> {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 32.0,
+              vertical: 16.0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                spacer,
                 _SettingSwitchItem(
                   'Sfx sound state',
                   _manager.settingsService.isSfxEnabled,
