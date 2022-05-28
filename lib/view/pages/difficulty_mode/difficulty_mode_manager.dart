@@ -18,11 +18,21 @@ class DifficultyModeManager extends ViewManager {
       _difficultySelected.value = type;
 
   // navigation
-  void navigateToBoard() => navigationService.pushNamedWithArguments(
+  void exitFromPage() =>
+      _difficultySelected.value.id == DifficultyModeType.custom.id
+          ? _navigateToCustomMode()
+          : _navigateToBoard();
+
+  void _navigateToCustomMode() => navigationService.pushNamedWithArguments(
+        AppRouter.customModeRoute,
+        _difficultySelected.value.id,
+      );
+
+  void _navigateToBoard() => navigationService.pushNamedWithArguments(
         AppRouter.boardRoute,
         BoardArguments(
           _difficultySelected.value.id,
-          _difficultySelected.value.gameConfiguration,
+          _difficultySelected.value.gameConfiguration!,
         ),
       );
 

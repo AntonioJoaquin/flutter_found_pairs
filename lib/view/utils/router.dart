@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../pages/board/board_arguments.dart';
 import '../pages/board/board_page.dart';
+import '../pages/difficulty_mode/custom_mode/custom_mode_page.dart';
 import '../pages/difficulty_mode/difficulty_mode_page.dart';
 import '../pages/home/home_page.dart';
 import '../pages/ranking/ranking_page.dart';
@@ -18,6 +19,7 @@ abstract class AppRouter {
   static const String rankingRoute = '/ranking';
   static const String settingsRoute = '/settings';
   static const String difficultyModeRoute = '/difficulty_mode';
+  static const String customModeRoute = '/custom_mode';
   static const String boardRoute = '/board';
   static const String scoreRoute = '/score';
 
@@ -37,6 +39,9 @@ abstract class AppRouter {
 
       case difficultyModeRoute:
         return _fadeRoute(const DifficultyModePage(), difficultyModeRoute);
+
+      case customModeRoute:
+        return _fadeRoute(const CustomModePage(), customModeRoute);
 
       case boardRoute:
         return _fadeRoute(

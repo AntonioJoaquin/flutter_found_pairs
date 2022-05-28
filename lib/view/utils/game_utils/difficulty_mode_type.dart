@@ -11,7 +11,7 @@ enum DifficultyModeType {
     'Easy Mode',
     Pictures.easyIcon,
     'Difficulty for beginners:\n\n- Pokemon to catch: 6\n- Seconds to catch them all: 60',
-    GameConfiguration.easy,
+    gameConfiguration: GameConfiguration.easy,
   ),
   medium(
     1,
@@ -19,7 +19,7 @@ enum DifficultyModeType {
     'Medium Mode',
     Pictures.mediumIcon,
     'Difficulty for a balanced game:\n\n- Pokemon to catch: 8\n- Seconds to catch them all: 50',
-    GameConfiguration.medium,
+    gameConfiguration: GameConfiguration.medium,
   ),
   hard(
     2,
@@ -28,7 +28,14 @@ enum DifficultyModeType {
     'Hard Mode',
     Pictures.hardIcon,
     'Difficult for those looking for a challenge:\n\n- Pokemon to catch: 12\n- Seconds to catch them all: 40',
-    GameConfiguration.hard,
+    gameConfiguration: GameConfiguration.hard,
+  ),
+  custom(
+    3,
+    lightColor: Palette.purple,
+    'Custom Mode',
+    Pictures.customIcon,
+    'Customize the time and the number of Pokemon to catch.',
   );
 
   final int id;
@@ -37,14 +44,14 @@ enum DifficultyModeType {
   final String text;
   final String difficultyIcon;
   final String description;
-  final GameConfiguration gameConfiguration;
+  final GameConfiguration? gameConfiguration;
 
   const DifficultyModeType(
     this.id,
     this.text,
     this.difficultyIcon,
-    this.description,
-    this.gameConfiguration, {
+    this.description, {
+    this.gameConfiguration,
     required this.lightColor,
     this.darkColor,
   });

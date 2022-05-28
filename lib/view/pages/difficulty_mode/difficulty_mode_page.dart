@@ -60,6 +60,12 @@ class _DifficultyModePageState extends State<DifficultyModePage> {
                 _manager,
                 isDark: _themeManager.isDark.value,
               ),
+              spacer,
+              _DifficultyItem(
+                DifficultyModeType.custom,
+                _manager,
+                isDark: _themeManager.isDark.value,
+              ),
               const Spacer(),
               ValueListenableBuilder(
                 valueListenable: _manager.difficultySelected,
@@ -69,7 +75,13 @@ class _DifficultyModePageState extends State<DifficultyModePage> {
                 ),
               ),
               const Spacer(),
-              CustomButton('Play!', _manager.navigateToBoard),
+              ValueListenableBuilder(
+                valueListenable: _manager.difficultySelected,
+                builder: (_, DifficultyModeType type, __) => CustomButton(
+                  type == DifficultyModeType.custom ? 'Custom game' : 'Play!',
+                  _manager.exitFromPage,
+                ),
+              ),
             ],
           ),
         ),

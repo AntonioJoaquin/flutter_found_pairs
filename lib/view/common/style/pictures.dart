@@ -19,4 +19,5 @@ abstract class Pictures {
   static const String easyIcon = 'assets/images/pokeball/easy.png';
   static const String mediumIcon = 'assets/images/pokeball/medium.png';
   static const String hardIcon = 'assets/images/pokeball/hard.png';
+  static const String customIcon = 'assets/images/pokeball/custom.png';
 }
