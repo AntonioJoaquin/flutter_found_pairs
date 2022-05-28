@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.found_pairs">
    <application
-        android:label="found_pairs"
+        android:label="Found Pairs"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:roundIcon="@mipmap/ic_launcher_round">

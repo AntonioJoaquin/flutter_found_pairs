@@ -1,6 +1,6 @@
 {
-    "name": "found_pairs",
-    "short_name": "found_pairs",
+    "name": "Found Pairs",
+    "short_name": "Found Pairs",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
