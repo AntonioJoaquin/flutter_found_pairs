@@ -42,4 +42,18 @@ abstract class CardStyles {
       Palette.white,
     ],
   );
+
+  static const Gradient customBackDesign = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    stops: [.4, .4, .5, .5, .6, .6],
+    colors: [
+      Palette.black,
+      Palette.yellow,
+      Palette.yellow,
+      Palette.black,
+      Palette.black,
+      Palette.white,
+    ],
+  );
 }

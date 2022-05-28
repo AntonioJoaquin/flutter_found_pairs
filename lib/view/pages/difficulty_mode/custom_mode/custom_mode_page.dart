@@ -2,10 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/common/palette.dart';
+import '../../../../di/locator.dart';
 import '../../../common/widgets/custom_button.dart';
+import 'custom_mode_manager.dart';
 
-class CustomModePage extends StatelessWidget {
+class CustomModePage extends StatefulWidget {
   const CustomModePage({Key? key}) : super(key: key);
+
+  @override
+  State<CustomModePage> createState() => _CustomModePageState();
+}
+
+class _CustomModePageState extends State<CustomModePage> {
+  final CustomModeManager _manager = locator<CustomModeManager>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,23 +30,43 @@ class CustomModePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const _RadioNumber(),
+              _RadioNumber(_manager),
               SizedBox(height: MediaQuery.of(context).size.height * .03),
-              const _CustomTimePicker(),
+              _CustomTimePicker(_manager),
               const Spacer(),
-              CustomButton('Play!', () {}),
+              CustomButton('Play!', _onPlayTapped),
             ],
           ),
         ),
       ),
     );
   }
+
+  // Funcitons
+  void _onPlayTapped() {
+    _validateSelectedTime()
+        ? _manager.navigateToBoard()
+        : _showInvalidSelectedTime();
+  }
+
+  bool _validateSelectedTime() =>
+      _manager.selectedMinutes.value != 0 ||
+      _manager.selectedSeconds.value != 0;
+
+  void _showInvalidSelectedTime() => ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('The selected time must be different than 00:00'),
+        ),
+      );
 }
 
 class _CustomTimePicker extends StatelessWidget {
-  const _CustomTimePicker({
+  const _CustomTimePicker(
+    this.manager, {
     Key? key,
   }) : super(key: key);
+
+  final CustomModeManager manager;
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +81,10 @@ class _CustomTimePicker extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height * .15,
           child: Row(
-            children: const [
-              Flexible(child: _Picker(2)),
-              Text(':'),
-              Flexible(child: _Picker(60)),
+            children: [
+              Flexible(child: _Picker(2, manager.selectMinutes)),
+              const Text(':'),
+              Flexible(child: _Picker(60, manager.selectSeconds)),
             ],
           ),
         ),
@@ -65,21 +95,25 @@ class _CustomTimePicker extends StatelessWidget {
 
 class _Picker extends StatelessWidget {
   const _Picker(
-    this.length, {
+    this.length,
+    this.onChanged, {
     Key? key,
   }) : super(key: key);
 
   final int length;
+  final Function onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPicker(
-      itemExtent: MediaQuery.of(context).size.height * .055,
-      children: List.generate(
-        length,
-        (index) => _PickerItem(index),
+    return Center(
+      child: CupertinoPicker(
+        itemExtent: MediaQuery.of(context).size.height * .055,
+        children: List.generate(
+          length,
+          (index) => _PickerItem(index),
+        ),
+        onSelectedItemChanged: (value) => onChanged.call(value),
       ),
-      onSelectedItemChanged: null,
     );
   }
 }
@@ -95,16 +129,19 @@ class _PickerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      value.toString(),
+      value.toString().padLeft(2, '0'),
       style: TextStyle(fontSize: 32.sp),
     );
   }
 }
 
 class _RadioNumber extends StatelessWidget {
-  const _RadioNumber({
+  const _RadioNumber(
+    this.manager, {
     Key? key,
   }) : super(key: key);
+
+  final CustomModeManager manager;
 
   @override
   Widget build(BuildContext context) {
@@ -118,9 +155,15 @@ class _RadioNumber extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.w300),
         ),
         SizedBox(height: height * .01),
-        const _RadioItem(8),
-        const _RadioItem(10),
-        const _RadioItem(12),
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: manager.numberOfPairsList.length,
+          itemBuilder: (_, index) => _RadioItem(
+            manager.numberOfPairsList[index],
+            manager,
+          ),
+        ),
       ],
     );
   }
@@ -128,20 +171,26 @@ class _RadioNumber extends StatelessWidget {
 
 class _RadioItem extends StatelessWidget {
   const _RadioItem(
-    this.value, {
+    this.value,
+    this.manager, {
     Key? key,
   }) : super(key: key);
 
   final int value;
+  final CustomModeManager manager;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(value.toString()),
-      leading: const Radio(
-        value: true,
-        groupValue: 'pairsNumber',
-        onChanged: null,
+      leading: ValueListenableBuilder(
+        valueListenable: manager.selectedNumberOfPairs,
+        builder: (_, int selectedValue, __) => Radio(
+          value: value,
+          groupValue: selectedValue,
+          onChanged: (_) => manager.selectNumberOfPairs(value),
+          activeColor: Palette.red,
+        ),
       ),
     );
   }

@@ -9,6 +9,7 @@ import '../../../domain/use_case/settings_use_case.dart';
 
 class ThemeManager {
   ThemeData _getTheme(bool isDark) => ThemeData(
+        primaryColor: Palette.red,
         brightness: isDark ? Brightness.dark : Brightness.light,
         appBarTheme: AppBarTheme(
           titleTextStyle: TextStyle(
@@ -55,6 +56,14 @@ class ThemeManager {
               fontSize: 16.sp,
               color: isDark ? Palette.darkItem : Palette.lightItem,
             ),
+          ),
+        ),
+        snackBarTheme: SnackBarThemeData(
+          backgroundColor: Palette.purple,
+          contentTextStyle: TextStyle(
+            fontSize: 16.sp,
+            color: Palette.white,
+            fontWeight: FontWeight.w300,
           ),
         ),
       );

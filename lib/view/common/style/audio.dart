@@ -4,6 +4,8 @@ abstract class Audio {
   static const String gameMedium = 'game_medium.mp3';
   static const String gameHard = 'game_hard.mp3';
 
+  static const List<String> game = [gameEasy, gameMedium, gameMedium];
+
   static const String win1 = 'win1.mp3';
   static const String win2 = 'win2.mp3';
   static const String lose1 = 'lose1.mp3';

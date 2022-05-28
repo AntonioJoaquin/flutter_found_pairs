@@ -23,10 +23,8 @@ class DifficultyModeManager extends ViewManager {
           ? _navigateToCustomMode()
           : _navigateToBoard();
 
-  void _navigateToCustomMode() => navigationService.pushNamedWithArguments(
-        AppRouter.customModeRoute,
-        _difficultySelected.value.id,
-      );
+  void _navigateToCustomMode() =>
+      navigationService.pushNamed(AppRouter.customModeRoute);
 
   void _navigateToBoard() => navigationService.pushNamedWithArguments(
         AppRouter.boardRoute,
