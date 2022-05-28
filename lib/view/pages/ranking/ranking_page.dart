@@ -155,16 +155,14 @@ class _RankingItem extends StatelessWidget {
           Image.asset(_score.difficultyIcon),
         ],
       ),
-      title: Flexible(
-        child: Text(
-          _score.name,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w300,
-          ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+      title: Text(
+        _score.name,
+        style: TextStyle(
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w300,
         ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
       trailing: Text(
         TimeUtils.formatDuration(Duration(seconds: _score.timeInSeconds)),
