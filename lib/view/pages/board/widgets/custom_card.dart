@@ -36,7 +36,7 @@ class _CustomCardState extends State<CustomCard>
   @override
   Widget build(BuildContext context) {
     return widget._isPairFounded
-        ? _EmptyCard(widget._gameConfiguration.difficultyIcon)
+        ? _EmptyCard(widget._card.backIcon)
         : AnimatedBuilder(
             animation: widget._card.animation!,
             builder: (_, __) => Transform(
@@ -111,6 +111,7 @@ class _EmptyCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         image: DecorationImage(
           image: AssetImage(_icon),
+          scale: .65,
           alignment: Alignment.center,
         ),
       ),

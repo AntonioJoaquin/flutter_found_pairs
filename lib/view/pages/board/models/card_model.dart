@@ -5,6 +5,7 @@ import '../../../../core/common/custom_notifiers.dart';
 class CardModel {
   final int value;
   final String publicValue;
+  final String backIcon;
 
   final CustomValueNotifier<bool> _isPairFounded =
       CustomValueNotifier<bool>(false);
@@ -21,7 +22,7 @@ class CardModel {
   Animation? _animation;
   Animation? get animation => _animation;
 
-  CardModel(this.value, this.publicValue);
+  CardModel(this.value, this.publicValue, this.backIcon);
 
   void init(TickerProvider vsync, Function onCheckPair) {
     _animControllerListener = (status) {

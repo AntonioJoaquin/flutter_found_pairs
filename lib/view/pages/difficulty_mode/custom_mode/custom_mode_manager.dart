@@ -8,7 +8,6 @@ import '../../../../core/common/custom_notifiers.dart';
 import '../../../common/manager/view_manager.dart';
 import '../../../common/style/audio.dart';
 import '../../../common/style/card_styles.dart';
-import '../../../common/style/pictures.dart';
 import '../../../utils/router.dart';
 import '../../board/board_arguments.dart';
 
@@ -47,7 +46,6 @@ class CustomModeManager extends ViewManager {
         _selectedMinutes.value * 60 + _selectedSeconds.value,
         _setCardColumnsNumber(),
         CardStyles.customBackDesign,
-        Pictures.customIcon,
         Audio.game[Random().nextInt(Audio.game.length)],
       );
 
